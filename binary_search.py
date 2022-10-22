@@ -29,7 +29,7 @@ import random, time
 #         max_index = mid_index -1
 
 
-#recursive
+#recursive binary search
 def binarySearch(nums, x, min_index, max_index):
     if max_index>=min_index:
         mid_index = (min_index + max_index) // 2
