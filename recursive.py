@@ -18,6 +18,7 @@ from stopwatch import Stopwatch
 #####################################################################
 ## first linear search 
 ## linear search algorithm uisng runtime calculations (timeit.timeit)
+## O(n)
 #####################################################################
 
 setup = '''
@@ -44,54 +45,56 @@ def linearSearch(nums):
 #####################################################################
 ## second linear search - conclusion: timeit more efficient -
 ## linear search algorithm uisng runtime calculations (timeit.timeit)
+## O(n)
 #####################################################################
 
-# nums = [2,4,6,8,10,12,14]
-# # num_var = random.choice(nums)
+nums = [2,4,6,8,10,12,14]
+# num_var = random.choice(nums)
 
-# def timeitLinearSearch(nums, num): #set of nums, target
-#     for i in nums:
-#         if i == num:
-#             # print('found the number:',i, ' index: ',nums.index(i))
-#             break
-#         # else:
-#         #     print('number not found:',i, ' index:', nums.index(i))
+def timeitLinearSearch(nums, num): #set of nums, target
+    for i in nums:
+        if i == num:
+            # print('found the number:',i, ' index: ',nums.index(i))
+            break
+        # else:
+        #     print('number not found:',i, ' index:', nums.index(i))
 
-# # t = timeit.Timer(stmt=lambda: linearSearch(nums), number = 1).timeit()
-# for i in nums:
-#     t = timeit.timeit(stmt=lambda: timeitLinearSearch(nums, i), number = 1)
-#     t=round(t,8)
-#     print('runtime for {}: {:.8f} secs using TIMEIT\n'.format(i,t))
+# t = timeit.Timer(stmt=lambda: linearSearch(nums), number = 1).timeit()
+for i in nums:
+    t = timeit.timeit(stmt=lambda: timeitLinearSearch(nums, i), number = 1)
+    t=round(t,8)
+    print('runtime for {}: {:.8f} secs using TIMEIT\n'.format(i,t))
 
 ###########################################################################
 ## third linear search 
 ## linear search algorithm uisng runtime calculations (stopwatch vs timeit)
+## O(n^m)
 ###########################################################################
 
-# nums = [2,4,6,8,10,12,14]
+nums = [2,4,6,8,10,12,14]
 
-# def stopWatchLinearSearch(nums, num): #set of nums, target
-#     stopwatch = Stopwatch()
-#     stopwatch.start()
-#     # t= stopwatch.
-#     # t.start()
-#     for i in nums:
-#         if i == num:
-#             # print('found the number:',i, ' index: ',nums.index(i))
-#             stopwatch.stop()
-#             print('time elapsed for {}: {:.8f} secs using STOPWATCH \n '.format(i, round(stopwatch.duration,8)))
-#             break
-#         # else:
-#         #     print('number not found:',i, ' index:', nums.index(i))
+def stopWatchLinearSearch(nums, num): #set of nums, target
+    stopwatch = Stopwatch()
+    stopwatch.start()
+    # t= stopwatch.
+    # t.start()
+    for i in nums:
+        if i == num:
+            # print('found the number:',i, ' index: ',nums.index(i))
+            stopwatch.stop()
+            print('time elapsed for {}: {:.8f} secs using STOPWATCH \n '.format(i, round(stopwatch.duration,8)))
+            break
+        # else:
+        #     print('number not found:',i, ' index:', nums.index(i))
         
-# for i in nums:
-#     stopWatchLinearSearch(nums,i)
+for i in nums:
+    stopWatchLinearSearch(nums,i)
 
 #######################################
 ## recursive excersise 1
 ## recursive example to find factorials
+## O(n^m)
 #######################################
-
 
 # def factorial(n):
 #     if n is 1: #This is the base case
@@ -107,6 +110,7 @@ def linearSearch(nums):
 ###########################################################
 ## recursive excersise 2
 ## recusive example to find fibonacci sequence using timeit
+## O(n^m)
 ###########################################################
 
 # def fibonacci(n):
@@ -134,6 +138,7 @@ def linearSearch(nums):
 #######################################################
 ## recursive excersise 3
 ## recursive formula to find sums of digits with timeit
+## O(n^m)
 #######################################################
 
 # print(123%10+(123//10))
@@ -157,6 +162,7 @@ def linearSearch(nums):
 #########################################
 ## recursive excersise 4
 ## recursive formula to reverse a string
+## O(n^m)
 #########################################
 
 # print('hello'[1:])
@@ -178,25 +184,26 @@ def linearSearch(nums):
 ######################################
 
 
-# print(1)
-# layer = [1, 1]
-# layers = 1
-# while layers < 10:
-#     for elem in layer:
-#         print(elem,end=' ')
-#     print()
-#     new_layer = []
-#     for i in range(len(layer)-1):
-#         num1 = layer[i]
-#         num2 = layer[i+1]
-#         new_layer.append(num1 + num2)
-#     new_layer=[1] + new_layer + [1]
-#     layer=new_layer
-#     layers+=1
+print(1)
+layer = [1, 1]
+layers = 1
+while layers < 10:
+    for elem in layer:
+        print(elem,end=' ')
+    print()
+    new_layer = []
+    for i in range(len(layer)-1):
+        num1 = layer[i]
+        num2 = layer[i+1]
+        new_layer.append(num1 + num2)
+    new_layer=[1] + new_layer + [1]
+    layer=new_layer
+    layers+=1
 
 ##############################################
 ## recursive excersise 5
 ## pascal's triangle with recursion and timeit
+## O(n*log(n)) sorting an element
 ##############################################
 
 def pascal(layer): 
@@ -214,7 +221,7 @@ def pascal(layer):
 
         new_layer = [1] + new_layer + [1] 
         layer = new_layer
-        pascal(layer)
+        pascal(layer)                                                                       
         
 print(1)
 layer = [1,1]
