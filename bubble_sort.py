@@ -28,7 +28,7 @@ print('sorted list: ', bubbleSort(nums, numsLength))
 
 t = timeit.timeit(stmt=lambda: bubbleSort(nums, numsLength), number = 1)
 t=round(t,8)
-print('runtime for program: {:.8f} secs using TIMEIT\n'.format(t))
+print('runtime for bubble sort: {:.8f} secs using TIMEIT\n'.format(t))
 
 
 
