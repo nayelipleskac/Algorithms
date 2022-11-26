@@ -6,28 +6,23 @@
 ##################################
 
 
-import timeit, random
+# import timeit, random
 
-def insertionSort(nums, current_index):
-    for i in range(1, len(nums)): 
-        key = nums[i]
-        j = i-1
-        # if key < nums[j]: 
-        #     nums[j+1] = nums[j]
-        #     j = j - 1
-        # if key > nums[j]: 
-        #     break
-        while j >= 0 and key < nums[j]:
-            nums[j+1]  = nums[j] 
-            j = j - 1
-        nums[j+1] = key
+# def insertionSort(nums, current_index):
+#     for i in range(1, len(nums)): 
+#         key = nums[i]
+#         j = i-1
+#         while j >= 0 and key < nums[j]:
+#             nums[j+1]  = nums[j] 
+#             j = j - 1
+#         nums[j+1] = key
 
 
-nums= [5,18,22,13,70,1,7] 
-current_index = nums[1]
-print('unsorted list: ', nums)
-insertionSort(nums, current_index)
-print('sorted list using insertion: ', nums)
+# nums= [5,18,22,13,70,1,7] 
+# current_index = nums[1]
+# print('unsorted list: ', nums)
+# insertionSort(nums, current_index)
+# print('sorted list using insertion: ', nums)
 
 # t = timeit.timeit(stmt=lambda: insertionSort(nums, current_index), number = 1)
 # t=round(t,8)
@@ -35,18 +30,23 @@ print('sorted list using insertion: ', nums)
 
 
 #recursive selection sort
-def insertionSort(nums, current_index):
-    if len(nums) == 0:
+def insertionSort(nums, n):
+    if n <= 1:
         return 0
     else: 
-        for i in range(1,len(nums)):
-            key= nums[i] 
-            j = i-1
-            if j >= 0 and key<nums[j]:
-                nums[j+1]  = nums[j] 
-                insertionSort(j-1)
-            nums[j+1] = key
+        insertionSort(nums, n-1)
+        key= nums[n-1] 
+        j = n-2
+       
+        while j >= 0 and key<nums[j]:
+            # print('nums list',nums)
+            nums[j+1]  = nums[j] 
+            j = j-1
+        nums[j+1] = key
                 
 
 nums = [5,18,22,13,70,1,7]
 current_index = nums[1]
+print('unsorted list: ', nums)
+insertionSort(nums, len(nums))
+print('sorted list: ', nums)

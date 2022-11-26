@@ -71,24 +71,24 @@ for i in nums:
 ## O(n^m)
 ###########################################################################
 
-nums = [2,4,6,8,10,12,14]
+# nums = [2,4,6,8,10,12,14]
 
-def stopWatchLinearSearch(nums, num): #set of nums, target
-    stopwatch = Stopwatch()
-    stopwatch.start()
-    # t= stopwatch.
-    # t.start()
-    for i in nums:
-        if i == num:
-            # print('found the number:',i, ' index: ',nums.index(i))
-            stopwatch.stop()
-            print('time elapsed for {}: {:.8f} secs using STOPWATCH \n '.format(i, round(stopwatch.duration,8)))
-            break
-        # else:
-        #     print('number not found:',i, ' index:', nums.index(i))
+# def stopWatchLinearSearch(nums, num): #set of nums, target
+#     stopwatch = Stopwatch()
+#     stopwatch.start()
+#     # t= stopwatch.
+#     # t.start()
+#     for i in nums:
+#         if i == num:
+#             # print('found the number:',i, ' index: ',nums.index(i))
+#             stopwatch.stop()
+#             print('time elapsed for {}: {:.8f} secs using STOPWATCH \n '.format(i, round(stopwatch.duration,8)))
+#             break
+#         # else:
+#         #     print('number not found:',i, ' index:', nums.index(i))
         
-for i in nums:
-    stopWatchLinearSearch(nums,i)
+# for i in nums:
+#     stopWatchLinearSearch(nums,i)
 
 #######################################
 ## recursive excersise 1
@@ -113,26 +113,26 @@ for i in nums:
 ## O(n^m)
 ###########################################################
 
-# def fibonacci(n):
-#     if n ==0:
-#         return 0
-#     if n == 1:
-#         return 1
-#     else:
-#         return fibonacci(n-1) + fibonacci(n-2)
-# n = int(input('Find the nth number in fibonacci sequence: ')) 
-# #print just n
-# print('number in sequence : ',fibonacci(n)) 
+def fibonacci(n):
+    if n ==0:
+        return 0
+    if n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+n = int(input('Find the nth number in fibonacci sequence: ')) 
+#print just n
+print('number in sequence : ',fibonacci(n)) 
 # t = timeit.timeit(stmt=lambda: fibonacci(n), number = 1)
 # t= round(t,8)
 # print('runtime for program : {:.8f} secs using timeit\n'.format(t))
 
-#to print out sequence of n
-# for i in range(n):
-#     print(fibonacci(i))
-    # t = timeit.timeit(stmt=lambda: fibonacci(n), number = 1)
-    # t=round(t,8)
-    # print('runtime for {} : {:.8f} secs using timeit\n'.format(x,t))
+# to print out sequence of n
+for i in range(n+1):
+    print(fibonacci(i))
+#     t = timeit.timeit(stmt=lambda: fibonacci(n), number = 1)
+#     t=round(t,8)
+#     print('runtime for {} : {:.8f} secs using timeit\n'.format(x,t))
    
 
 #######################################################
@@ -184,51 +184,51 @@ for i in nums:
 ######################################
 
 
-print(1)
-layer = [1, 1]
-layers = 1
-while layers < 10:
-    for elem in layer:
-        print(elem,end=' ')
-    print()
-    new_layer = []
-    for i in range(len(layer)-1):
-        num1 = layer[i]
-        num2 = layer[i+1]
-        new_layer.append(num1 + num2)
-    new_layer=[1] + new_layer + [1]
-    layer=new_layer
-    layers+=1
+# print(1)
+# layer = [1, 1]
+# layers = 1
+# while layers < 10:
+#     for elem in layer:
+#         print(elem,end=' ')
+#     print()
+#     new_layer = []
+#     for i in range(len(layer)-1):
+#         num1 = layer[i]
+#         num2 = layer[i+1]
+#         new_layer.append(num1 + num2)
+#     new_layer=[1] + new_layer + [1]
+#     layer=new_layer
+#     layers+=1
 
-##############################################
-## recursive excersise 5
-## pascal's triangle with recursion and timeit
-## O(n*log(n)) sorting an element
-##############################################
+# ##############################################
+# ## recursive excersise 5
+# ## pascal's triangle with recursion and timeit
+# ## O(n*log(n)) sorting an element
+# ##############################################
 
-def pascal(layer): 
-    if len(layer) > 10:  #base cases
-        return
-    else: 
-        for i in layer:
-            print(i, end = ' ')
-        print()
-        new_layer = []
-        for i in range(len(layer)-1):
-            num1= layer[i]
-            num2 = layer[i+1]
-            new_layer.append(num1 + num2)
+# def pascal(layer): 
+#     if len(layer) > 10:  #base cases
+#         return
+#     else: 
+#         for i in layer:
+#             print(i, end = ' ')
+#         print()
+#         new_layer = []
+#         for i in range(len(layer)-1):
+#             num1= layer[i]
+#             num2 = layer[i+1]
+#             new_layer.append(num1 + num2)
 
-        new_layer = [1] + new_layer + [1] 
-        layer = new_layer
-        pascal(layer)                                                                       
+#         new_layer = [1] + new_layer + [1] 
+#         layer = new_layer
+#         pascal(layer)                                                                       
         
-print(1)
-layer = [1,1]
-# pascal(layer)
-t= timeit.timeit(stmt=lambda: pascal(layer), number = 1)
-t = round(t,8)
-print('time of program : {:.8f} sec\n'.format(t))
+# print(1)
+# layer = [1,1]
+# # pascal(layer)
+# t= timeit.timeit(stmt=lambda: pascal(layer), number = 1)
+# t = round(t,8)
+# print('time of program : {:.8f} sec\n'.format(t))
 
 
 
