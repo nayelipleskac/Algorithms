@@ -6,7 +6,7 @@
 ##################################
 
 
-# import timeit, random
+import timeit, random, cProfile
 
 # def insertionSort(nums, current_index):
 #     for i in range(1, len(nums)): 
@@ -28,8 +28,12 @@
 # t=round(t,8)
 # print('runtime for selection sort: {:.8f} secs using TIMEIT\n'.format(t))
 
-
-#recursive selection sort
+##########################
+#recursive insertion sort
+# space complexity: O(1)
+# runtime: 0.00000480 secs
+# time complexity: O(n^2)
+##########################
 def insertionSort(nums, n):
     if n <= 1:
         return 0
@@ -46,7 +50,13 @@ def insertionSort(nums, n):
                 
 
 nums = [5,18,22,13,70,1,7]
-current_index = nums[1]
+current_index = len(nums)
 print('unsorted list: ', nums)
 insertionSort(nums, len(nums))
 print('sorted list: ', nums)
+
+cProfile.run(insertionSort(nums, current_index))
+
+t = timeit.timeit(stmt=lambda: insertionSort(nums, current_index), number = 1)
+t=round(t,8)
+print('runtime for insertion sort: {:.8f} secs using TIMEIT\n'.format(t))

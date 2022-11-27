@@ -34,8 +34,12 @@ import timeit, random
 # t=round(t,8)
 # print('runtime for selection sort: {:.8f} secs using TIMEIT\n'.format(t))
 
-## recursive version 
-
+#####################################
+# recursive version of selection sort 
+# time complexity: O(n^2) 
+# space complexity: O(1)
+# runtime: 0.00000470 secs
+#####################################
 def selectionSort(nums, numsLength, x):
     if numsLength == 0:
         return 
@@ -57,3 +61,7 @@ print('unsorted list: ', nums)
 selectionSort(nums, numsLength, 0)
 print('sorted list with recursion: ')
 print(nums)
+
+t = timeit.timeit(stmt=lambda: selectionSort(nums, numsLength, 0), number = 1)
+t=round(t,8)
+print('runtime for selection sort: {:.8f} secs using TIMEIT\n'.format(t))

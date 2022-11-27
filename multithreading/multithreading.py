@@ -56,39 +56,49 @@ import random, numpy
 # thread.start()
 # print('E')
 
-# def number_printer():
-#     for number in range(1,6,1):
-#         print(number)
-#         sleep(1)
-# thread = Thread(target = number_printer)
-# thread.start()
-# print('A')
-# thread.join()
-# print('B')
+def number_printer1():
+    for number in range(1,6,1):
+        print(number)
+        sleep(1)
+    print('numberprinter1 finished')
+
+def number_printer2():
+    for number in range(1,11,1):
+        print(number)
+        sleep(1)
+    print('numberprinter2 finished')
+thread1, thread2 = Thread(target = number_printer1), Thread(target = number_printer2)
+thread1.start()
+thread2.start()
+print('threads started')
+thread1.join()
+thread2.join()
+print('threads finished')
+
+
 
 ###########
 #question 3
 ###########
-numbers = [[],[],[],[],[]]
-def randomNumbers():    
-    for i in range(0,5,1):
-        for j in range(1,11,1): #10 random integers
-            numbers[i].append(random.randint(1,15))        
-    # print(numbers)
-    # print(numpy.prod(numbers[0]))
-    # print(numpy.prod(numbers[1]))
-    # print(numpy.prod(numbers[2]))
-    # print(numpy.prod(numbers[3]))
-    # print(numpy.prod(numbers[4]))
+# numbers = [[],[],[],[],[]]
+# def randomNumbers():    
+#     for i in range(0,5,1):
+#         for j in range(0,10,1): #10 random integers
+#             numbers[i].append(random.randint(1,15))        
+#     # print(numbers)
+#     # print(numpy.prod(numbers[0]))
+#     # print(numpy.prod(numbers[1]))
+#     # print(numpy.prod(numbers[2]))
+#     # print(numpy.prod(numbers[3]))
+#     # print(numpy.prod(numbers[4]))
 
-def results():
-    for i in range(0,5,1):
-        thread = Thread(target = randomNumbers)
-        thread.start()
-        print(numbers[i])
-        print(numpy.prod(numbers[i]))
 
-results()
+# for i in range(0,5,1):
+#     thread = Thread(target = randomNumbers)
+#     thread.start()
+#     print(numbers[i])
+#     print(numpy.prod(numbers[i]))
+
 
 
 

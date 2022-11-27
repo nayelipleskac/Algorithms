@@ -6,6 +6,7 @@ import timeit, random, big_o
 ## bubble sort algorithm
 ## runtime & time complexity:
 ## O(n^2): 2 nested for loops
+## space complexity: O(1)
 ############################# 
 
 def bubbleSort(nums, n):

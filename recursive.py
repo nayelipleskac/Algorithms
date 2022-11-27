@@ -203,9 +203,10 @@ for i in nums:
 #     layers+=1
 
 # ##############################################
-# ## recursive excersise 5
-# ## pascal's triangle with recursion and timeit
-# ## O(n*log(n)) sorting an element
+## recursive excersise 5
+## pascal's triangle with recursion and timeit
+## time complexity: O(n*log(n)) sorting an element
+## space complexity: O(1)
 # ##############################################
 
 # def pascal(layer): 

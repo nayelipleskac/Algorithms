@@ -37,7 +37,8 @@ import random, time, timeit
 ####################################################
 ## recursive binary search
 ## binary search algorithm with recursion and timeit
-## O(log(n)) algorithm - searching sorted array
+## time complexity: O(log(n)) algorithm - searching sorted array
+## space complexity: O(1)
 ####################################################
 
 def binarySearch(nums, x, min_index, max_index):
