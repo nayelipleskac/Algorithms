@@ -48,7 +48,9 @@ def linearSearch(nums):
 ## O(n)
 #####################################################################
 
-nums = [2,4,6,8,10,12,14]
+# nums = [2,4,6,8,10,12,14]
+nums = [5,18,22,13,70,1,7,23,5,6,90,54,19,1,0,67,80,63,17,300,193,9384,823,4,95,98,288,234,4829,34,78]
+
 # num_var = random.choice(nums)
 
 def timeitLinearSearch(nums, num): #set of nums, target
@@ -113,23 +115,23 @@ for i in nums:
 ## O(n^m)
 ###########################################################
 
-def fibonacci(n):
-    if n ==0:
-        return 0
-    if n == 1:
-        return 1
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
-n = int(input('Find the nth number in fibonacci sequence: ')) 
-#print just n
-print('number in sequence : ',fibonacci(n)) 
+# def fibonacci(n):
+#     if n ==0:
+#         return 0
+#     if n == 1:
+#         return 1
+#     else:
+#         return fibonacci(n-1) + fibonacci(n-2)
+# n = int(input('Find the nth number in fibonacci sequence: ')) 
+# #print just n
+# print('number in sequence : ',fibonacci(n)) 
 # t = timeit.timeit(stmt=lambda: fibonacci(n), number = 1)
 # t= round(t,8)
 # print('runtime for program : {:.8f} secs using timeit\n'.format(t))
 
 # to print out sequence of n
-for i in range(n+1):
-    print(fibonacci(i))
+# for i in range(n+1):
+#     print(fibonacci(i))
 #     t = timeit.timeit(stmt=lambda: fibonacci(n), number = 1)
 #     t=round(t,8)
 #     print('runtime for {} : {:.8f} secs using timeit\n'.format(x,t))
