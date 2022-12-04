@@ -56,6 +56,12 @@ import random, numpy
 # thread.start()
 # print('E')
 
+## hw 11/27
+
+# explain every picture in introduction slides next class
+# insert code for all alogorithms
+# explain singleton design pattern 
+
 def number_printer1():
     for number in range(1,6,1):
         print(number)
