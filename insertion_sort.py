@@ -7,6 +7,8 @@
 
 
 import timeit, random, cProfile
+from memory_profiler import profile
+import requests
 
 # def insertionSort(nums, current_index):
 #     for i in range(1, len(nums)): 
@@ -34,6 +36,7 @@ import timeit, random, cProfile
 # runtime: 0.00000480 secs
 # time complexity: O(n^2)
 ##########################
+@profile
 def insertionSort(nums, n):
     if n <= 1:
         return 0
@@ -55,7 +58,7 @@ print('unsorted list: ', nums)
 insertionSort(nums, len(nums))
 print('sorted list: ', nums)
 
-cProfile.run(insertionSort(nums, current_index))
+# cProfile.run(insertionSort(nums, current_index))
 
 t = timeit.timeit(stmt=lambda: insertionSort(nums, current_index), number = 1)
 t=round(t,8)
