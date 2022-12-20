@@ -13,6 +13,12 @@ class Client():
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = '127.0.0.1' #localhost
         self.port = 1234
+    def x(self):
+        while True:
+            data = self.s.recv(1024)
+            print(data)
+            self.s.close()
+            pygame.display.update()
     def connectClient(self):
         self.s.connect((self.host, self.port)) #connect to host and port of server
         print('connected')
@@ -42,8 +48,4 @@ if __name__ == '__main__':
     game = Pygame()
     game.run()
 
-while True:
-    data = s.recv(1024)
-    print(data)
-    s.close()
-    pygame.display.update()
+
