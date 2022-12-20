@@ -5,9 +5,20 @@ from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP, K_s, K_w
 i= {1:' ',2:' ',3:' ',4:' ',5:' ',6:' ',7:' ',8:' ',9:' '}
 
 class Server():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = '127.0.0.1'
-    port= 1234
+    def __init__(self):
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.host = '127.0.0.1'
+        self.port= 1234
+    def x(self):
+        self.s.bind((self.host, self.port))
+        print('socket binded to port %s' %(self.port))
+        self.s.listen()
+        print('Socket is listening...')
+        while True: 
+            pygame.display.update()
+            # pygame.draw.line(screen, )
+            conn, addr = self.s.accept() 
+
 
 class Player:
     def __init__(self):
@@ -36,12 +47,6 @@ class Pygame():
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
    
 if __name__ == '__main__':
+    game = Pygame()
+    player = O()
 
-s.bind((host,port))
-print('socket binded to port %s' %(port))
-s.listen()
-print('Socket is listening...')
-while True: 
-    pygame.display.update()
-    # pygame.draw.line(screen, )
-    conn, addr = s.accept() 
