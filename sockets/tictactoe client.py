@@ -15,10 +15,11 @@ class Client():
         self.port = 1234
     def x(self):
         while True:
+            pygame.display.update()
             data = self.s.recv(1024)
             print(data)
             self.s.close()
-            pygame.display.update()
+            
     def connectClient(self):
         self.s.connect((self.host, self.port)) #connect to host and port of server
         print('connected')
@@ -34,6 +35,7 @@ class Pygame():
         for x in range(0,600,200):
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
+        pygame.display.update()
     def run():
         pass
 
@@ -46,6 +48,6 @@ class X(Player):
 if __name__ == '__main__':
     client = Client()
     game = Pygame()
-    game.run()
+    game.drawGrid()
 
 

@@ -1,7 +1,6 @@
 import socket, atexit, pygame, time
 from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP, K_s, K_w
 
-
 i= {1:' ',2:' ',3:' ',4:' ',5:' ',6:' ',7:' ',8:' ',9:' '}
 
 class Server():
@@ -9,7 +8,7 @@ class Server():
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = '127.0.0.1'
         self.port= 1234
-    def x(self):
+    def connectServer(self):
         self.s.bind((self.host, self.port))
         print('socket binded to port %s' %(self.port))
         self.s.listen()
@@ -18,8 +17,10 @@ class Server():
             pygame.display.update()
             # pygame.draw.line(screen, )
             conn, addr = self.s.accept() 
-
-
+            print('Got a connecton from ', addr)
+            conn.send('thank you for connecting '.encode())
+            self.s.close()
+            
 class Player:
     def __init__(self):
         self.v = None
@@ -32,7 +33,7 @@ class O(Player):
 
 class TicTacToe():
     pass 
-    #filling boxes
+    #filling boxes logic
 
 class Pygame():
     def __init__(self):
@@ -45,8 +46,14 @@ class Pygame():
         for x in range(0,600,200):
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
+        pygame.display.update()
+    def run(self):
+        pass
    
 if __name__ == '__main__':
     game = Pygame()
     player = O()
+    server = Server()
+    game.drawGrid()
+    # server.connectServer()
 
