@@ -21,9 +21,9 @@ while True:
     print('Got a connecton from ', addr)
     conn.send('thank you for connecting '.encode())
     s.close()
-    break
-    # data = input('Server: ')
-    # conn.sendall(data.encode())
-    # data = conn.recv(1024)
-    # print(addr,":", data.decode())
+    
+    data = input('Server: ')
+    conn.sendall(data.encode())
+    data = conn.recv(1024)
+    print(addr,":", data.decode())
     
