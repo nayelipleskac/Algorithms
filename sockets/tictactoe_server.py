@@ -14,7 +14,7 @@ class Server():
         self.s.listen()
         print('Socket is listening...')
         while True: 
-            pygame.display.update()
+            # pygame.display.update()
             # pygame.draw.line(screen, )
             conn, addr = self.s.accept() 
             print('Got a connecton from ', addr)
@@ -54,6 +54,7 @@ if __name__ == '__main__':
     game = Pygame()
     player = O()
     server = Server()
-    game.drawGrid()
+    server.connectServer()
+    # game.drawGrid()
     # server.connectServer()
 

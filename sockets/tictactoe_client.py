@@ -48,6 +48,7 @@ class X(Player):
 if __name__ == '__main__':
     client = Client()
     game = Pygame()
-    game.drawGrid()
+    client.connectClient()
+    # game.drawGrid()
 
 
