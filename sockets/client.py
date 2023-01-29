@@ -6,10 +6,9 @@ port = 1234
 
 s.connect((host, port)) #connect to host and port of server
 print('connected')
-
-data = s.recv(1024)
-print(data)
-s.close()
-# print(data.decode())
-# data = input('Client: ')
-# s.sendall(data.encode())
+while True:
+    data = s.recv(1024)
+    print(data.decode())
+    data = input('Client: ')
+    s.sendall(data.encode())
+    s.close()

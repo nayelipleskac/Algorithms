@@ -16,14 +16,14 @@ print('socket binded to port %s' %(port))
 s.listen()
 print('Socket is listening...')
 
+conn, addr = s.accept() #get client's socket obj and network address
+print('Got a connecton from ', addr)
+conn.send('thank you for connecting '.encode())
+
 while True: 
-    conn, addr = s.accept() #get client's socket obj and network address
-    print('Got a connecton from ', addr)
-    conn.send('thank you for connecting '.encode())
-    s.close()
-    
     data = input('Server: ')
     conn.sendall(data.encode())
     data = conn.recv(1024)
     print(addr,":", data.decode())
+    s.close()
     
