@@ -1,6 +1,6 @@
 import socket, atexit, pygame, time
 from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP, K_s, K_w
-
+from pygame.locals import *
 
 class Player:
     def __init__(self):
@@ -51,11 +51,13 @@ class Client():
         for x in range(0,600,200):
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
+
+        self.s.connect((self.host, self.port)) #reopening socket for new thread
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     x,y= pygame.mouse.get_pos()
                     print(x,y)
                     #draw X in box 1
@@ -63,13 +65,13 @@ class Client():
                         pygame.draw.line(self.screen,(255,255,255),(x-50,y-50),(x+50,y+50),1) 
                         pygame.draw.line(self.screen,(255,255,255),(x+50,y-50),(x-50,y+50),1)
                     #sending x,y message to server 
-                    self.s.connect((self.host, self.port)) #reopening socket for new thread
                     print('Client: connected')
                     data = self.s.recv(1024)
                     print(data.decode())
                     data = str(x) + ','+ str(y).encode()
                     self.s.sendall(data.encode())  
                     self.s.close()  
+                    #keep connection open 
             pygame.display.update()
        
     def start(self):

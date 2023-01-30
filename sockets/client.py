@@ -1,14 +1,24 @@
 import socket
-
+import atexit
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = '127.0.0.1' #localhost
 port = 1234
-
 s.connect((host, port)) #connect to host and port of server
 print('connected')
-while True:
-    data = s.recv(1024)
-    print(data.decode())
-    data = input('Client: ')
-    s.sendall(data.encode())
+
+def handle_exit():
+    print('This runs after a keyboard interrupt')
     s.close()
+atexit.register(handle_exit)
+
+while True:
+    #recieve message from server
+    data = s.recv(1024)
+    print('recieved: ', data.decode())
+    #enter message to send
+    data = input('Client: ')
+    s.send(data.encode())
+    if data == 'break':
+        break
+    
+s.close()

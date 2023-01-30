@@ -1,6 +1,6 @@
 import socket, atexit, pygame, time
 from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP, K_s, K_w
-
+from pygame.locals import *
 
 class Player:
     def __init__(self):
@@ -41,27 +41,28 @@ class Server():
         for x in range(0,600,200):
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
+
+        conn, addr = self.s.accept()
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
                     x,y = pygame.mouse.get_pos()
-                #recieving mousebutton
+                    #recieving mousebutton
                     # x,y = event.pos
                     print(x,y)
                     #drawing O in box 1
                     if x in range(0,200) and y in range(0,200):
                         pygame.draw.circle(self.screen,(255,255,255), (x,y),70,1)
-                        #update board 
 
                     #sending x,y position message to client
-                    conn, addr = self.s.accept()
                     data = (str(x) + "," + str(y).encode)
                     conn.sendall(data.encode())
                     data = conn.recv(1024)
                     print(addr,":",data.decode())
                     self.s.close()
+                    #keep connection open 
 
             pygame.display.update()
        
