@@ -14,11 +14,10 @@ atexit.register(handle_exit)
 while True:
     #recieve message from server
     data = s.recv(1024)
-    print('recieved: ', data.decode())
+    print('recieved from server: ', data.decode())
     #enter message to send
-    data = input('Client: ')
+    data = input('say something to the server: ')
     s.send(data.encode())
     if data == 'break':
         break
-    
 s.close()
