@@ -8,29 +8,30 @@ class Player:
     def value(self):
         return self.v
 
-class O(Player):
+class X(Player):
     def __init__(self):
         Player().__init__()
-        self.v = 'o'
+        self.v = 'x'
 
-class X(Player):
+class O(Player):
     def __init__(self):
         super().__init__()
         print(super())
-        self.v = 'x'
+        self.v = 'o'
 
 class TicTacToe():
     def __init__(self): 
         self.board= {1:' ',2:' ',3:' ',4:' ',5:' ',6:' ',7:' ',8:' ',9:' '}
-        self.p2 = X()
+        self.p2 = O()
     def update(self, pos, val):
         self.board[pos] = val
 
 class Server():
     def __init__(self):
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = '127.0.0.1'
         self.port= 1234
+        self.backlog = 5
         self.screen = None
     def startGame(self):
         print('Starting game...')
@@ -42,30 +43,41 @@ class Server():
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
 
-        conn, addr = self.s.accept()
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
-                    x,y = pygame.mouse.get_pos()
-                    #recieving mousebutton
-                    # x,y = event.pos
-                    print(x,y)
-                    #drawing O in box 1
-                    if x in range(0,200) and y in range(0,200):
-                        pygame.draw.circle(self.screen,(255,255,255), (x,y),70,1)
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.bind((self.host,self.port))
+            print('socket binded to port %s' %(self.port))
+            s.listen(self.backlog)
+            conn, addr = s.accept() #get client's socket obj and network address
+            print('Socket is listening...')
+            print('Got a connecton from ', addr)
+            with conn:
+                while True:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                        if event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
+                            x,y = pygame.mouse.get_pos()
+                            print(x,y)
+                            #drawing O in box 1
+                            if x in range(0,200) and y in range(0,200):
+                                self.drawX(x,y,self.screen)
+                                TicTacToe.update(1,'X')
+                            
+                            
+                            #sending x,y position message to client
+                            # data = (str(event.pos[0]) + "," + str(event.pos[1])).encode()
+                            data = str(x) + ',' + str(y)
+                            conn.send(data.encode())
+                            data = conn.recv(1024).decode('utf-8')
+                            print(addr,":", data.encode())
+                            print('Message recieved: ', data)
+                        # self.s.close()
+                    pygame.display.update()
+    
+    def drawX(x,y, screen):  
+        pygame.draw.line(screen,(255,255,255),(x-50,y-50),(x+50,y+50),1) 
+        pygame.draw.line(screen,(255,255,255),(x+50,y-50),(x-50,y+50),1)
 
-                    #sending x,y position message to client
-                    data = (str(x) + "," + str(y).encode)
-                    conn.sendall(data.encode())
-                    data = conn.recv(1024)
-                    print(addr,":",data.decode())
-                    self.s.close()
-                    #keep connection open 
-
-            pygame.display.update()
-       
     def start(self):
         #start server connection 
         self.s.bind((self.host, self.port))
@@ -80,8 +92,8 @@ class Server():
         self.startGame()
    
 if __name__ == '__main__':
-    player = O() #server is O
+    player = X() #server is X
     server = Server()
-    server.start()
+    server.startGame()
 
 

@@ -37,7 +37,7 @@ class TicTacToe():
 ##########################################
 class Client():
     def __init__(self):
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = '127.0.0.1' #localhost
         self.port = 1234
         self.screen = None
@@ -52,28 +52,47 @@ class Client():
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
 
-        self.s.connect((self.host, self.port)) #reopening socket for new thread
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    x,y= pygame.mouse.get_pos()
-                    print(x,y)
-                    #draw X in box 1
-                    if x in range(0,200) and y in range(0,200):
-                        pygame.draw.line(self.screen,(255,255,255),(x-50,y-50),(x+50,y+50),1) 
-                        pygame.draw.line(self.screen,(255,255,255),(x+50,y-50),(x-50,y+50),1)
-                    #sending x,y message to server 
-                    print('Client: connected')
-                    data = self.s.recv(1024)
-                    print(data.decode())
-                    data = str(x) + ','+ str(y).encode()
-                    self.s.sendall(data.encode())  
-                    self.s.close()  
-                    #keep connection open 
-            pygame.display.update()
-       
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((self.host, self.port)) #reopening socket for new thread
+            print('Client: connected')
+            while True:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                    if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                        x,y= pygame.mouse.get_pos()
+                        print(x,y)
+                        #draw X in box 1
+                        if x in range(0,200) and y in range(0,200):
+                            self.drawO(x,y,self.screen)
+                        if x in range(200,400) and y in range(0,200):
+                            self.drawO(x,y,self.screen)
+                        if x in range(400,600) and y in range(0,200):
+                            self.drawO(x,y,self.screen)
+                        if x in range(0,200) and y in range(200,400):
+                            self.drawO(x,y,self.screen)
+                        if x in range(200,400) and y in range(200,400):
+                            self.drawO(x,y,self.screen)
+                        if x in range(400,600) and y in range(200,400):
+                            self.drawO(x,y,self.screen)
+                        if x in range(0,200) and y in range(400,600):
+                            self.drawO(x,y,self.screen)
+                        if x in range(200,400) and y in range(400,600):
+                            self.drawO(x,y,self.screen)
+                        if x in range(400,600) and y in range(400,600):
+                            self.drawO(x,y,self.screen)
+
+
+                        #sending x,y message to server 
+                        data = s.recv(1024)
+                        print('recieved from server: ', data.decode())
+                        # data = (str(event.pos[0]) + "," + str(event.pos[1])).encode()
+                        data = str(x) + ',' + str(y)
+                        s.send(data.encode())  
+                        # s.close()  
+                pygame.display.update()
+    def drawO(x,y,screen):
+        pygame.draw.circle(screen,(255,255,255),(x,y),70,1) #o 
     def start(self):
         
         self.s.connect((self.host, self.port)) #connect to host and port of server
@@ -86,7 +105,7 @@ class Client():
 
 if __name__ == '__main__':
     client = Client()
-    client.start()
+    client.startGame()
     # game.drawGrid()
 
 
