@@ -37,7 +37,6 @@ class TicTacToe():
 ##########################################
 class Client():
     def __init__(self):
-        # self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = '127.0.0.1' #localhost
         self.port = 1234
         self.screen = None
@@ -47,12 +46,11 @@ class Client():
         pygame.init()
         self.screen = pygame.display.set_mode((600, 600))
         pygame.display.set_caption("Tic-Tac-Toe client")
-        #creating the board on screen
-        for x in range(0,600,200):
+        for x in range(0,600,200):   #creating the board on screen
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
-
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        print('Client: set up board')
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: #socket is below pygame event loop
             s.connect((self.host, self.port)) #reopening socket for new thread
             print('Client: connected')
             while True:
@@ -62,39 +60,53 @@ class Client():
                     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                         x,y= pygame.mouse.get_pos()
                         print(x,y)
-                        #draw X in box 1
-                        if x in range(0,200) and y in range(0,200):
-                            self.drawO(x,y,self.screen)
-                        if x in range(200,400) and y in range(0,200):
-                            self.drawO(x,y,self.screen)
-                        if x in range(400,600) and y in range(0,200):
-                            self.drawO(x,y,self.screen)
-                        if x in range(0,200) and y in range(200,400):
-                            self.drawO(x,y,self.screen)
-                        if x in range(200,400) and y in range(200,400):
-                            self.drawO(x,y,self.screen)
-                        if x in range(400,600) and y in range(200,400):
-                            self.drawO(x,y,self.screen)
-                        if x in range(0,200) and y in range(400,600):
-                            self.drawO(x,y,self.screen)
-                        if x in range(200,400) and y in range(400,600):
-                            self.drawO(x,y,self.screen)
-                        if x in range(400,600) and y in range(400,600):
-                            self.drawO(x,y,self.screen)
 
-
-                        #sending x,y message to server 
-                        data = s.recv(1024)
+                        data = s.recv(1024) #recv x,y message to server 
                         print('recieved from server: ', data.decode())
-                        # data = (str(event.pos[0]) + "," + str(event.pos[1])).encode()
+                        y=data.split(',')
+                        print('Client split data ', y)
+
+                        # print('coord. recieved from server: ',x_server, y_server)
+                        # find what box x and y coord. are in from server
+                        # if x in range(0,200) and y in range(0,200):
+                            # self.drawX(data)
+                        #client mouse position
                         data = str(x) + ',' + str(y)
                         s.send(data.encode())  
-                        # s.close()  
+                        print('Sending data to server...')
+
+                        #draw O in boxes 1-9
+                        # if x in range(0,200) and y in range(0,200):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 1')
+                        # if x in range(200,400) and y in range(0,200):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 2')
+                        # if x in range(400,600) and y in range(0,200):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 3')
+                        # if x in range(0,200) and y in range(200,400):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 4')
+                        # if x in range(200,400) and y in range(200,400):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 5')
+                        # if x in range(400,600) and y in range(200,400):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 6')
+                        # if x in range(0,200) and y in range(400,600):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 7')
+                        # if x in range(200,400) and y in range(400,600):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 8')
+                        # if x in range(400,600) and y in range(400,600):
+                        #     self.drawO(x,y,self.screen)
+                        #     print('Client in box 9')
                 pygame.display.update()
-    def drawO(x,y,screen):
+    def drawO(self,x,y,screen):
         pygame.draw.circle(screen,(255,255,255),(x,y),70,1) #o 
     def start(self):
-        
         self.s.connect((self.host, self.port)) #connect to host and port of server
         print('Client: connected')
         #recieve data from server
@@ -106,6 +118,5 @@ class Client():
 if __name__ == '__main__':
     client = Client()
     client.startGame()
-    # game.drawGrid()
 
 
