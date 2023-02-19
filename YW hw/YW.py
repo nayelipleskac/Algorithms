@@ -60,11 +60,28 @@
 #         print('Aha! Name has an a in it! Goodbye')
 #         break
 
-import datetime
-current_datetime = datetime.datetime.now()
-formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
+# import datetime
+# current_datetime = datetime.datetime.now()
+# formatted_datetime = current_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
-with open('log.txt', 'a') as log_file:
-    user_input = input('Enter something to be logged: ')
-    #write user input to file
-    log_file.write(formatted_datetime + ' - ' + user_input + '\n')
+# with open('log.txt', 'a') as log_file:
+#     user_input = input('Enter something to be logged: ')
+#     #write user input to file
+#     log_file.write(formatted_datetime + ' - ' + user_input + '\n')
+
+# def returnWord(userInput, constants):
+#     word=userInput
+#     print(word)
+#     for letter in word:
+#         if letter == 'a' or letter == 'o' or letter == 'e' or letter == 'i' or letter == 'u': 
+#             print(letter, 'is a vowel')
+#         else:
+#             constants.append(letter)
+#             print(letter, 'is a constant')
+        
+# constants = []
+# userInput = input("Enter a string: ")
+# returnWord(userInput, constants)
+# print(constants)
+
+print('hello!')
