@@ -22,9 +22,30 @@ class O(Player):
 class TicTacToe():
     def __init__(self): 
         self.board= {1:' ',2:' ',3:' ',4:' ',5:' ',6:' ',7:' ',8:' ',9:' '}
-        self.p2 = O()
-        self.s = Server().
+        self.p = 'x'
+        self.s = None
         self.running = True
+    def play(self, conn, socket):
+        self.conn = conn
+        self.s = socket
+
+        pygame.init()
+        self.screen = pygame.display.set_mode((600, 600))
+        pygame.display.set_caption("Tic-Tac-Toe server")
+
+        while self.running:
+            pygame.display.update()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
+                    x,y = pygame.mouse.get_pos()
+                    print('x: {},( y: {}'.format(x,y))
+                    self.conn.sendall('{}, {}'.format(x,y).encode())
+
+
     def update(self, pos, val):
         self.board[pos] = val
 
@@ -35,13 +56,19 @@ class Server():
         self.backlog = 5
         self.screen = None
         self.player= ''
-    def update(self, x,y):
+        self.g = TicTacToe()
+    def start(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.bind(self.host, self.port)
+
+            s.bind((self.host, self.port)) #start server connection 
+            print('socket binded to port %s' %(self.port))
+            print('Socket is listening...')
             s.listen(1)
-            self.conn, addr = s.accept()
+            conn, addr = s.accept()  #accept connection 
             with self.conn:
-                self.conn.sendall('{}, {}'.format(x,y)).encode()
+                self.g.play(self.conn, s)
+                print('Got a connecton from ', addr)
+                conn.send('thank you for connecting '.encode())
 
 
     def startGame(self):
@@ -86,64 +113,19 @@ class Server():
                         print('Server: Message recieved: ', data)
                         pygame.display.update()  
 
-                        # z=data.split(',')
-                        # print('Server split data', z)
-                        # self.player = 'x'
-                            #drawing O in box 1
-                            # if x in range(0,200) and y in range(0,200):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 1')
-                            # if x in range(200,400) and y in range(0,200):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 2')
-                            # if x in range(400,600) and y in range(0,200):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 3')
-                            # if x in range(0,200) and y in range(200,400):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 4')
-                            # if x in range(200,400) and y in range(200,400):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 5')
-                            # if x in range(400,600) and y in range(200,400):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 6')
-                            # if x in range(0,200) and y in range(400,600):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 7')
-                            # if x in range(200,400) and y in range(400,600):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 8')
-                            # if x in range(400,600) and y in range(400,600):
-                            #     self.drawX(x,y,self.screen)
-                            #     print('Server in box 9')
-                            
-                            #sending x,y position message to client
-                            # data = (str(event.pos[0]) + "," + str(event.pos[1])).encode()
-                           
+                        
     
     def drawX(self,x,y, screen):  
         pygame.draw.line(screen,(255,255,255),(x-50,y-50),(x+50,y+50),1) 
         pygame.draw.line(screen,(255,255,255),(x+50,y-50),(x-50,y+50),1)
 
-    def start(self):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
-            s.bind((self.host, self.port)) #start server connection 
-            print('socket binded to port %s' %(self.port))
-            print('Socket is listening...')
-            s.listen(1)
-            conn, addr = s.accept()  #accept connection 
-            with self.conn:
-                self.g.start(self.conn, s)
-                print('Got a connecton from ', addr)
-                conn.send('thank you for connecting '.encode())
       
    
 if __name__ == '__main__':
     player = X() #server is X
     server = Server()
-    server.startGame()
+    server.start()
     # server.start()
 
 

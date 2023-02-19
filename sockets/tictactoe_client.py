@@ -26,31 +26,27 @@ class TicTacToe():
         self.running = True
     def update(self, pos, val):
         self.board[pos] = val
-    def start(self):
-        self.c.start()
+    # def start(self):
+    #     self.c.start()
     def play(self, socket):
+        self.s = socket
         pygame.init()
         self.screen = pygame.display.set_mode((600,600))
-        pygame.display.set_caption('client')
-        #set caption
+        pygame.display.set_caption("Tic-Tac-Toe server")
         while True:
+            data = self.s.rec(1024).decode()
+            if not data:
+                print(data)
+
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
+                    x,y = pygame.mouse.get_pos()
+                    print('x: {},( y: {}'.format(x,y))                
 
         
-##########################################
-#client starts: 
-# connect clinet 
-# mark board
-# open connection to send server (pos, val)
-# close connection
-# wait for server data
-# update the board
-# repeat 
-##########################################
 class Client():
     def __init__(self):
         self.host = '127.0.0.1' #localhost
@@ -63,29 +59,9 @@ class Client():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect(self.host, self.port)
             print('Connected to ', self.host)
-            s.sendall('connected to ').encode()
-            self.g.start(s)
-            # while True:
-            #     data= s.recv(1024).decode()
-            #     if data == 'break':
-            #         break
-            #     print('Recieved', data)
-            #     s.sendall()
+            s.sendall('Connected to ').encode()
+            self.g.play(s)
 
-    def listen(self):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.bind()
-            s.listen(1)
-            self.conn, addr = s.accept()
-            with self.conn:
-                print('connected by', addr)
-                data = None
-                if not data:
-                    print(data)
-                    
-                    # data.s.recv(1024).decode()
-                    # print('received', data)
-                    # s.sendall(input('Enter').encode())
 
     def startGame(self):
         print('Starting game...')
@@ -127,34 +103,7 @@ class Client():
                         # self.drawX(data)
                     #client mouse position
                         
-                        #draw O in boxes 1-9
-                        # if x in range(0,200) and y in range(0,200):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 1')
-                        # if x in range(200,400) and y in range(0,200):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 2')
-                        # if x in range(400,600) and y in range(0,200):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 3')
-                        # if x in range(0,200) and y in range(200,400):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 4')
-                        # if x in range(200,400) and y in range(200,400):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 5')
-                        # if x in range(400,600) and y in range(200,400):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 6')
-                        # if x in range(0,200) and y in range(400,600):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 7')
-                        # if x in range(200,400) and y in range(400,600):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 8')
-                        # if x in range(400,600) and y in range(400,600):
-                        #     self.drawO(x,y,self.screen)
-                        #     print('Client in box 9')
+                    
                 
     def drawO(self,x,y,screen):
         pygame.draw.circle(screen,(255,255,255),(x,y),70,1) #o 
@@ -163,7 +112,7 @@ class Client():
 
 if __name__ == '__main__':
     client = Client()
-    client.startGame()
+    client.start()
     # client.start()
 
 
