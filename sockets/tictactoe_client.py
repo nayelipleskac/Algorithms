@@ -32,34 +32,42 @@ class TicTacToe():
         self.s = socket
         pygame.init()
         self.screen = pygame.display.set_mode((600,600))
-        pygame.display.set_caption("Tic-Tac-Toe server")
-        while True:
-            data = self.s.rec(1024).decode()
+        pygame.display.set_caption("Tic-Tac-Toe client")
+        for x in range(0,600,200):
+            for y in range(0,600,200):
+                pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
+        print('client: set up game board')
+        while self.running:
+            data = self.s.recv(1024).decode()
+            print('server pos: ', data)
             if not data:
                 print(data)
 
             pygame.display.update()
             for event in pygame.event.get():
+                print('Client: in pygame event loop')
                 if event.type == pygame.QUIT:
                     pygame.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
+                    print('client: got x,y pos')
                     x,y = pygame.mouse.get_pos()
-                    print('x: {},( y: {}'.format(x,y))                
-
+                    print('client: ','x: {}, y: {}'.format(x,y)) 
+                    # self.s.sendall(data.encode())
         
 class Client():
     def __init__(self):
         self.host = '127.0.0.1' #localhost
         self.port = 1234
         self.screen = None
-        self.player = ''
+        self.player = 'o'
         self.g = TicTacToe()
+        self.connect()
         # self.g = TicTacToe()
     def start(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect(self.host, self.port)
-            print('Connected to ', self.host)
-            s.sendall('Connected to ').encode()
+            s.connect((self.host, self.port))
+            print('Client: Connected to ', self.host)
+            s.sendall('Client: connection established'.encode())
             self.g.play(s)
 
 
@@ -111,6 +119,7 @@ class Client():
 
 
 if __name__ == '__main__':
+    app = TicTacToe()
     client = Client()
     client.start()
     # client.start()

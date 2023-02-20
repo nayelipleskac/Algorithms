@@ -32,18 +32,27 @@ class TicTacToe():
         pygame.init()
         self.screen = pygame.display.set_mode((600, 600))
         pygame.display.set_caption("Tic-Tac-Toe server")
+        for x in range(0,600,200):
+            for y in range(0,600,200):
+                pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
 
         while self.running:
             pygame.display.update()
 
             for event in pygame.event.get():
+                data= conn.recv(1024).decode('utf-8')
+                if not data:
+                    pass
+                print('recieved', data)
+
                 if event.type == pygame.QUIT:
                     pygame.quit()
 
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
                     x,y = pygame.mouse.get_pos()
-                    print('x: {},( y: {}'.format(x,y))
+                    print('x: {}, y: {}'.format(x,y))
                     self.conn.sendall('{}, {}'.format(x,y).encode())
+
 
 
     def update(self, pos, val):
@@ -59,14 +68,13 @@ class Server():
         self.g = TicTacToe()
     def start(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-
             s.bind((self.host, self.port)) #start server connection 
             print('socket binded to port %s' %(self.port))
             print('Socket is listening...')
             s.listen(1)
             conn, addr = s.accept()  #accept connection 
-            with self.conn:
-                self.g.play(self.conn, s)
+            with conn:
+                self.g.play(conn, s)
                 print('Got a connecton from ', addr)
                 conn.send('thank you for connecting '.encode())
 
@@ -88,7 +96,7 @@ class Server():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
                 print('event.type: pygame.msebtn')
                 x,y = pygame.mouse.get_pos()
-                print('x:',x,'y',y)
+                print('server: ','x:',x,'y',y)
                 # x,y = event.pos
                 # data = str(x) + ',' + str(y)
 
