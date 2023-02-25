@@ -84,4 +84,22 @@
 # returnWord(userInput, constants)
 # print(constants)
 
-print('hello!')
+###########################################################################
+# emunerate function is used to loop over an iterable (list, tuple, string) 
+# along with an index that keeps track of the current iteratoin number
+###########################################################################
+
+# s = 'this is a sentence'
+# result = ''
+# for i,c in enumerate(s):
+#     if i % 2==0:
+#         result +=c.lower()
+#     else:
+#         result += c.upper()
+# print(result)
+
+userInput = int(input('enter a number: '))
+numDict = {}
+for i in range(1,11,1):
+    numDict[i] = i**i
+print(numDict)
