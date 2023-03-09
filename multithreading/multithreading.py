@@ -63,14 +63,16 @@ import random, numpy
 # explain singleton design pattern 
 
 def number_printer1():
-    for number in range(1,6,1):
-        print(number)
+    sleep(1)
+    for number in range(0,10,1):
+        print('num_printer1 - {}'.format(number))
         sleep(1)
     print('numberprinter1 finished')
 
 def number_printer2():
-    for number in range(1,11,1):
-        print(number)
+    sleep(4)
+    for number in range(0,5,1):
+        print('num_printer2 - {}'.format(number))
         sleep(1)
     print('numberprinter2 finished')
 thread1, thread2 = Thread(target = number_printer1), Thread(target = number_printer2)
@@ -91,12 +93,12 @@ print('threads finished')
 #     for i in range(0,5,1):
 #         for j in range(0,10,1): #10 random integers
 #             numbers[i].append(random.randint(1,15))        
-#     # print(numbers)
-#     # print(numpy.prod(numbers[0]))
-#     # print(numpy.prod(numbers[1]))
-#     # print(numpy.prod(numbers[2]))
-#     # print(numpy.prod(numbers[3]))
-#     # print(numpy.prod(numbers[4]))
+    # print(numbers)
+    # print(numpy.prod(numbers[0]))
+    # print(numpy.prod(numbers[1]))
+    # print(numpy.prod(numbers[2]))
+    # print(numpy.prod(numbers[3]))
+    # print(numpy.prod(numbers[4]))
 
 
 # for i in range(0,5,1):
