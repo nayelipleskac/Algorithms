@@ -23,9 +23,15 @@
 
 #astericks excersise
  
-# numInput = (input('Enter a number: '))
-# newWord = '*' * len(numInput)
-# print(newWord)
+numInput = (input('Enter a number: '))
+if '.' in numInput: 
+    integar_part, decimal_part = numInput.split('.')
+    integar_part = '$'*len(integar_part)
+    decimal_part = '$'*len(decimal_part)
+    print(integar_part+'.'+decimal_part)
+else:
+    newWord = '$' * len(numInput)
+    print(newWord)
 
 #random nums
 
@@ -56,8 +62,8 @@
 
 # while True:
 #     nameInput = input('Enter a name: ')
-#     if 'a' in nameInput:
-#         print('Aha! Name has an a in it! Goodbye')
+#     if 'a' not in nameInput:
+#         print('Aha! Name doesn\'t have an a in it! Goodbye')
 #         break
 
 # import datetime
@@ -93,13 +99,42 @@
 # result = ''
 # for i,c in enumerate(s):
 #     if i % 2==0:
-#         result +=c.lower()
+#         result +=c.upper()
 #     else:
-#         result += c.upper()
+#         result += c.lower()
 # print(result)
 
-userInput = int(input('enter a number: '))
-numDict = {}
-for i in range(1,11,1):
-    numDict[i] = i**i
-print(numDict)
+# userInput = int(input('enter a number: '))
+# numDict = {}
+# for i in range(1,11,1):
+#     numDict[i] = i**i
+# print(numDict)
+
+# def returnWord(userInput, constants):
+#     word=userInput
+#     print(word)
+#     for letter in word:
+#         if letter == 'a' or letter == 'o' or letter == 'e' or letter == 'i' or letter == 'u': 
+#             print(letter, 'is a vowel')
+#         else:
+#             constants.append(letter)
+#             print(letter, 'is a constant')
+        
+# constants = []
+# userInput = input("Enter a string: ")
+# returnWord(userInput, constants)
+# print(constants)
+
+#num = int(input('Enter a number: '))
+# for num in range(1,1000,1):
+#     num_digits = len(str(num))
+#     sum = 0
+#     for digit in str(num):
+#         sum += int(digit) ** num_digits
+
+#     if sum == num:
+#         print(num, 'is an armstrong num!')
+##    else:
+##        print(num, 'is not an armstrong num')
+
+    
