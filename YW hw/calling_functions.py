@@ -1,7 +1,7 @@
 # import line_functions.py
 # line_functions.distance()
 
-from line_functions.py import distance, midpoint
+from line_functions import distance, midpoint
 
 X1 = int(input('Enter in x-coordinate for 1st point: '))
 Y1 = int(input('Enter in y-coordinate for 1st point: '))

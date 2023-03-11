@@ -13,7 +13,7 @@ def distance(x1, y1, x2, y2):
 
 def midpoint(x1, y1, x2, y2):
     calc1 = ((x1+x2)/2)
-    calc2 = ((y2-y1)/2)
+    calc2 = ((y2+y1)/2)
     calc3 = calc1, calc2
     print(calc3)
 
