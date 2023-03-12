@@ -1,6 +1,7 @@
 from threading import Thread
 from time import sleep
-import random, numpy
+import random, string
+# import expressions
 
 #hw: questions 1-3 on multithreading 
 
@@ -35,12 +36,12 @@ import random, numpy
 #     for num in numbers:
 #         t = Thread(target = prime_checker, args = (num,))
 #         t.start()
-#         # t.join()
+#         t.join()
 #         print('Completed task for {}!'.format(num))
 
-# prime_thread = Thread(target = primes, args = ([4483,4493,4507,4561,4567,4583,4591],))
+# prime_thread = Thread(target = primes, args = ([4483,4493,],))
 # prime_thread.start()
-# # prime_thread.join()
+# prime_thread.join()
 # print('The program ended')
 
 ##################
@@ -62,53 +63,143 @@ import random, numpy
 # insert code for all alogorithms
 # explain singleton design pattern 
 
-def number_printer1():
-    sleep(1)
-    for number in range(0,10,1):
-        print('num_printer1 - {}'.format(number))
-        sleep(1)
-    print('numberprinter1 finished')
+# def number_printer1():
+#     sleep(1)
+#     for number in range(0,10,1):
+#         print('num_printer1 - {}'.format(number))
+#         sleep(1)
+#     print('numberprinter1 finished')
 
-def number_printer2():
-    sleep(4)
-    for number in range(0,5,1):
-        print('num_printer2 - {}'.format(number))
-        sleep(1)
-    print('numberprinter2 finished')
-thread1, thread2 = Thread(target = number_printer1), Thread(target = number_printer2)
-thread1.start()
-thread2.start()
-print('threads started')
-thread1.join()
-thread2.join()
-print('threads finished')
+# def number_printer2():
+#     sleep(4)
+#     for number in range(0,5,1):
+#         print('num_printer2 - {}'.format(number))
+#         sleep(1)
+#     print('numberprinter2 finished')
+# thread1, thread2 = Thread(target = number_printer1), Thread(target = number_printer2)
+# thread1.start()
+# thread2.start()
+# print('threads started')
+# thread1.join()
+# thread2.join()
+# print('threads finished')
 
 
 
 ###########
 #question 3
 ###########
-# numbers = [[],[],[],[],[]]
-# def randomNumbers():    
-#     for i in range(0,5,1):
-#         for j in range(0,10,1): #10 random integers
-#             numbers[i].append(random.randint(1,15))        
-    # print(numbers)
-    # print(numpy.prod(numbers[0]))
-    # print(numpy.prod(numbers[1]))
-    # print(numpy.prod(numbers[2]))
-    # print(numpy.prod(numbers[3]))
-    # print(numpy.prod(numbers[4]))
+#create an empty 2d list with 5 subsets
+# import random
 
+# # create an empty 2D list
+# #generate 5 random integers for the 5 subsets 
+# my_list = [[random.randint(1,10) for j in range(5)] for i in range(5)]
+# print(my_list)
+# def row_product(row):
+#     product = 1
+#     for num in row:
+#         product *= num
+#     print("Product of row", my_list.index(row), "is", product)
+# #create a thread for each row
+# threads = [Thread(target = row_product, args = (row,)) for row in my_list]
 
-# for i in range(0,5,1):
-#     thread = Thread(target = randomNumbers)
+# #start each thread
+# for thread in threads:
 #     thread.start()
-#     print(numbers[i])
-#     print(numpy.prod(numbers[i]))
+
+###########
+#question 4
+###########
+expression_list = []
+answers_list = []
+
+def count_lines(filename, data_list):
+    with open(filename, 'r') as f:
+        lines = f.readlines()
+        print('numbers of lines in {} '.format(filename), len(lines))
+        for line in lines:
+            data_list.append(line.strip())
+thread1 = Thread(target = count_lines, args=('expressions.txt', expression_list))
+thread2 = Thread(target = count_lines, args=('answers.txt', answers_list))
+
+thread1.start()
+thread2.start()
+
+thread1.join()
+thread2.join()
+print('finished counting lines!')
+print('Expressions: ')
+print(expression_list)
+print('Answers: ')
+print(answers_list)
+
+# def readExpressions():
+#     with open('expressions.txt', 'r') as file:
+#         x = len(file.readlines())
+#         print('The total number of lines in expressions.txt ', x)
 
 
+##################################################
+# the is_alive method checks the state of a thread
+# before calling start(), threads are not alive 
+##################################################
+
+# def user_input():
+#     while True:
+#         number = int(input('Please enter a non-zero number: '))
+#         if number == 0: #similar to base case
+#             print('you entered a 0 :(')
+#             break
+#         print(number*2)
+#         print('thread is still alive')
+# def checker_function():
+#     while user_input_thread.is_alive():
+#         pass #as long as while loop does not break, thread is alive
+#     print('the thread is not alive')
+# user_input_thread = Thread(target = user_input)
+# checker_thread = Thread(target = checker_function)
+# user_input_thread.start()
+# checker_thread.start()
 
 
+############
+# question 5
+############
+
+# def generate_nums():
+#     for i in range(0,101):
+#         print(random.randint(0,100))
+#     print('thread has finished execution')
+# # def checker_function():
+        
+# nums_thread = Thread(target = generate_nums)
+# nums_thread.start()
+
+# while nums_thread.is_alive():
+#     pass
+# print('done with program')
+ 
+
+ #################################  
+ # question 6
+ # show which thread finishs first
+ #################################
+
+# letters_list1 = []
+# letters_list2 = []
+# letters_list3 = []
+# letters_list4 = []
+# letters_list5 = []
+
+# def generate_list(thread_list):
+#     for i in range(5):
+#         print(random.choice(string.ascii_lowercase))
+#         thread_list.append(i)
+
+
+# t1 = Thread(target= generate_list, args = (letters_list1,))
+# t1.start()
+# print(letters_list1)
 
 
