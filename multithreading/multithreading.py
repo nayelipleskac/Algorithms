@@ -185,6 +185,7 @@ import random, string
  # question 6
  # show which thread finishes first
  #################################
+import time
 
 letters_list1 = []
 letters_list2 = []
@@ -192,31 +193,30 @@ letters_list3 = []
 letters_list4 = []
 letters_list5 = []
 
-# def generate_list(thread_list):
-#     for i in range(10):
-#         letter = random.choice(string.ascii_lowercase)
-#         thread_list.append(letter)
-def generate_list_thread(thread_list):
+def generate_list_thread(thread_list, name):
     for i in range(10):
         letter = random.choice(string.ascii_lowercase)
         thread_list.append(letter)
+        # time.sleep(1)
+        print('{}: '.format(name), '\n',thread_list)
     while current_thread().is_alive():
         if not active_count()>5:
             print('{} generated {}'.format(current_thread().name, thread_list))
+            print('completed with {}'.format(current_thread().name))
             break
 #create two threads
-t1 = Thread(target= generate_list_thread, name = 'Thread 1', args = (letters_list1,))
-t2 = Thread(target = generate_list_thread, name = 'Thread 2' , args= (letters_list2,))
-t3 = Thread(target = generate_list_thread, name = 'Thread 3' , args= (letters_list3,))
-t4 = Thread(target = generate_list_thread, name = 'Thread 4' , args= (letters_list4,))
-t5 = Thread(target = generate_list_thread, name = 'Thread 5' , args= (letters_list5,))
+t1 = Thread(target= generate_list_thread, name = 'Thread 1', args = (letters_list1,'Thread1',))
+t2 = Thread(target = generate_list_thread, name = 'Thread 2' , args= (letters_list2, 'Thread 2',))
+t3 = Thread(target = generate_list_thread, name = 'Thread 3' , args= (letters_list3, 'Thread 3',))
+t4 = Thread(target = generate_list_thread, name = 'Thread 4' , args= (letters_list4, 'Thread 4',))
+t5 = Thread(target = generate_list_thread, name = 'Thread 5' , args= (letters_list5, 'Thread 5',))
 
+time.sleep(60)
 t1.start()
 t2.start()
 t3.start()
 t4.start()
 t5.start()
-
 
 
 # while t1.is_alive():
