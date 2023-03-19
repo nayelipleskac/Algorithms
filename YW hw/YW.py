@@ -23,15 +23,15 @@
 
 #astericks excersise
  
-numInput = (input('Enter a number: '))
-if '.' in numInput: 
-    integar_part, decimal_part = numInput.split('.')
-    integar_part = '$'*len(integar_part)
-    decimal_part = '$'*len(decimal_part)
-    print(integar_part+'.'+decimal_part)
-else:
-    newWord = '$' * len(numInput)
-    print(newWord)
+# numInput = (input('Enter a number: '))
+# if '.' in numInput: 
+#     integar_part, decimal_part = numInput.split('.')
+#     integar_part = '$'*len(integar_part)
+#     decimal_part = '$'*len(decimal_part)
+#     print(integar_part+'.'+decimal_part)
+# else:
+#     newWord = '$' * len(numInput)
+#     print(newWord)
 
 #random nums
 
@@ -125,7 +125,7 @@ else:
 # returnWord(userInput, constants)
 # print(constants)
 
-#num = int(input('Enter a number: '))
+# num = int(input('Enter a number: '))
 # for num in range(1,1000,1):
 #     num_digits = len(str(num))
 #     sum = 0
@@ -134,7 +134,21 @@ else:
 
 #     if sum == num:
 #         print(num, 'is an armstrong num!')
-##    else:
-##        print(num, 'is not an armstrong num')
+# #    else:
+# #        print(num, 'is not an armstrong num')
 
-    
+##########
+# march 17, 
+##########
+# import random
+
+# count = {}
+
+# for i in range(100):
+#     number = random.randint(1,10)
+#     if number in count:
+#         count[number] +=1
+#     else:
+#         count[number] = 1
+
+# print(count)
