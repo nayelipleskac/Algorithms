@@ -152,3 +152,16 @@
 #         count[number] = 1
 
 # print(count)
+
+##########
+# march 19
+##########
+
+def giveName(name):
+    if name == '':
+        print('Hello Guys')
+    else:
+        print('Hello', name)
+
+nameInput = input('Hello! What\'s your name? ')
+giveName(nameInput)
