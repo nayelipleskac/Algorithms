@@ -57,8 +57,6 @@ import random, string
 # thread.start()
 # print('E')
 
-## hw 11/27
-
 # explain every picture in introduction slides next class
 # insert code for all alogorithms
 # explain singleton design pattern 

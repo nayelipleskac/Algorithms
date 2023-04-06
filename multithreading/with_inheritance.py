@@ -1,4 +1,5 @@
 import threading, time, random
+
 ################################################
 # hw: repeat previous exercises with inheritance
 ################################################
@@ -20,16 +21,19 @@ import threading, time, random
 # k.start()
 
 #example 1
-class MyThread(threading.Thread):
-    def run(self):
-        print('run function')
+# class MyThread(threading.Thread):
+#     def run(self):
+#         print('run function')
 
-if __name__ == '__main__':
-    for i in range(3):
-        t = MyThread()
-        t.start()
+# if __name__ == '__main__':
+#     for i in range(3):
+#         t = MyThread()
+#         t.start()
 
-# 1
+###########
+# problem 1
+###########
+
 # letters = ['A', 'B', 'C', 'D']
 # def func():
 #     for letter in letters:
@@ -39,5 +43,59 @@ if __name__ == '__main__':
 # thread.start()
 # print('E')
 
-class MyThread(threading.Thread):
-    pass
+##################
+# with inheritance
+##################
+
+# from time import sleep
+
+# class MyThread(threading.Thread):
+#     def run(self):
+#         self.letters= ['A', 'B', 'C', 'D']
+#         for letter in self.letters:
+#             print(letter)
+#             sleep(2)
+#         print('E')
+    
+# if __name__ == '__main__':
+#     t = MyThread()
+#     t.start()
+    
+###########
+# problem 2
+###########
+from threading import Thread
+
+# def number_printer():
+#     for number in range(1,6,1):
+#         print(number)
+#         time.sleep(1)
+    
+# thread = Thread(target = number_printer)
+# thread.start()
+# print('A')
+# thread.join()
+# print('B')
+
+##################
+# with inheritance
+##################
+
+class MyThread(Thread):
+    def number_printer(self):
+        print('in number_printer')
+        for number in range(1,6,1):
+            if number == 1:
+                print('A')
+            print(number)
+            time.sleep(1)
+        print('B')
+    def run(self):
+        self.number_printer()
+
+if __name__ == '__main__':
+    thread = MyThread()
+    thread.start()
+    thread.join()
+
+
