@@ -202,19 +202,28 @@ def generate_list_thread(thread_list, name):
             print('{} generated {}'.format(current_thread().name, thread_list))
             print('completed with {}'.format(current_thread().name))
             break
-#create two threads
+#create 5 threads
 t1 = Thread(target= generate_list_thread, name = 'Thread 1', args = (letters_list1,'Thread1',))
 t2 = Thread(target = generate_list_thread, name = 'Thread 2' , args= (letters_list2, 'Thread 2',))
 t3 = Thread(target = generate_list_thread, name = 'Thread 3' , args= (letters_list3, 'Thread 3',))
 t4 = Thread(target = generate_list_thread, name = 'Thread 4' , args= (letters_list4, 'Thread 4',))
 t5 = Thread(target = generate_list_thread, name = 'Thread 5' , args= (letters_list5, 'Thread 5',))
 
-time.sleep(60)
+time.sleep(2)
 t1.start()
+t1.join()
+
 t2.start()
+t2.join()
+
 t3.start()
+t3.join()
+
 t4.start()
+t4.join()
+
 t5.start()
+t5.join()
 
 
 # while t1.is_alive():
