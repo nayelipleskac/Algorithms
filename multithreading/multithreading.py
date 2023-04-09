@@ -109,39 +109,39 @@ import random, string
 ###########
 #question 4
 ###########
-# expression_list = []
-# answers_list = []
+expression_list = []
+answers_list = []
 
-# def count_lines(filename, data_list):
-#     with open(filename, 'r') as f:
-#         lines = f.readlines()
-#         print('numbers of lines in {} '.format(filename), len(lines))
-#         for line in lines:
-#             data_list.append(line)
-# thread1 = Thread(target = count_lines, args=('expressions.txt', expression_list))
-# thread2 = Thread(target = count_lines, args=('answers.txt', answers_list))
+def count_lines(filename, data_list):
+    with open(filename, 'r') as f:
+        lines = f.readlines()
+        print('numbers of lines in {} '.format(filename), len(lines))
+        for line in lines:
+            data_list.append(line)
+thread1 = Thread(target = count_lines, args=('expressions.txt', expression_list))
+thread2 = Thread(target = count_lines, args=('answers.txt', answers_list))
 
-# thread1.start()
-# thread2.start()
+thread1.start()
+thread2.start()
 
-# thread1.join()
-# thread2.join()
-# print('finished counting lines!')
-# print('Expressions: ')
-# print(expression_list)
-# print('Answers: ')
-# print(answers_list)
+thread1.join()
+thread2.join()
+print('finished counting lines!')
+print('Expressions: ')
+print(expression_list)
+print('Answers: ')
+print(answers_list)
 
-# def readExpressions():
-#     with open('expressions.txt', 'r') as file:
-#         x = len(file.readlines())
-#         print('The total number of lines in expressions.txt ', x)
+def readExpressions():
+    with open('expressions.txt', 'r') as file:
+        x = len(file.readlines())
+        print('The total number of lines in expressions.txt ', x)
 
 
-##################################################
+#################################################
 # the is_alive method checks the state of a thread
 # before calling start(), threads are not alive 
-##################################################
+#################################################
 
 # def user_input():
 #     while True:
@@ -183,47 +183,47 @@ import random, string
  # question 6
  # show which thread finishes first
  #################################
-import time
+# import time
 
-letters_list1 = []
-letters_list2 = []
-letters_list3 = []
-letters_list4 = []
-letters_list5 = []
+# letters_list1 = []
+# letters_list2 = []
+# letters_list3 = []
+# letters_list4 = []
+# letters_list5 = []
 
-def generate_list_thread(thread_list, name):
-    for i in range(10):
-        letter = random.choice(string.ascii_lowercase)
-        thread_list.append(letter)
-        # time.sleep(1)
-        print('{}: '.format(name), '\n',thread_list)
-    while current_thread().is_alive():
-        if not active_count()>5:
-            print('{} generated {}'.format(current_thread().name, thread_list))
-            print('completed with {}'.format(current_thread().name))
-            break
-#create 5 threads
-t1 = Thread(target= generate_list_thread, name = 'Thread 1', args = (letters_list1,'Thread1',))
-t2 = Thread(target = generate_list_thread, name = 'Thread 2' , args= (letters_list2, 'Thread 2',))
-t3 = Thread(target = generate_list_thread, name = 'Thread 3' , args= (letters_list3, 'Thread 3',))
-t4 = Thread(target = generate_list_thread, name = 'Thread 4' , args= (letters_list4, 'Thread 4',))
-t5 = Thread(target = generate_list_thread, name = 'Thread 5' , args= (letters_list5, 'Thread 5',))
+# def generate_list_thread(thread_list, name):
+#     for i in range(10):
+#         letter = random.choice(string.ascii_lowercase)
+#         thread_list.append(letter)
+#         # time.sleep(1)
+#         print('{}: '.format(name), '\n',thread_list)
+#     while current_thread().is_alive():
+#         if not active_count()>5:
+#             print('{} generated {}'.format(current_thread().name, thread_list))
+#             print('completed with {}'.format(current_thread().name))
+#             break
+# #create 5 threads
+# t1 = Thread(target= generate_list_thread, name = 'Thread 1', args = (letters_list1,'Thread1',))
+# t2 = Thread(target = generate_list_thread, name = 'Thread 2' , args= (letters_list2, 'Thread 2',))
+# t3 = Thread(target = generate_list_thread, name = 'Thread 3' , args= (letters_list3, 'Thread 3',))
+# t4 = Thread(target = generate_list_thread, name = 'Thread 4' , args= (letters_list4, 'Thread 4',))
+# t5 = Thread(target = generate_list_thread, name = 'Thread 5' , args= (letters_list5, 'Thread 5',))
 
-time.sleep(2)
-t1.start()
-t1.join()
+# time.sleep(2)
+# t1.start()
+# t1.join()
 
-t2.start()
-t2.join()
+# t2.start()
+# t2.join()
 
-t3.start()
-t3.join()
+# t3.start()
+# t3.join()
 
-t4.start()
-t4.join()
+# t4.start()
+# t4.join()
 
-t5.start()
-t5.join()
+# t5.start()
+# t5.join()
 
 
 # while t1.is_alive():

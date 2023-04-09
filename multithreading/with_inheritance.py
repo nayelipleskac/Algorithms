@@ -151,34 +151,56 @@ import random
 # problem 4- skipped
 ###########
 
-# expression_list = []
-# answers_list = []
+expression_list = []
+answers_list = []
 
-# def count_lines(filename, data_list):
-#     with open(filename, 'r') as f:
-#         lines = f.readlines()
-#         print('numbers of lines in {} '.format(filename), len(lines))
-#         for line in lines:
-#             data_list.append(line)
-# thread1 = Thread(target = count_lines, args=('expressions.txt', expression_list))
-# thread2 = Thread(target = count_lines, args=('answers.txt', answers_list))
+def count_lines(filename, data_list):
+    with open(filename, 'r') as f:
+        lines = f.readlines()
+        print('numbers of lines in {} '.format(filename), len(lines))
+        for line in lines:
+            data_list.append(line)
+thread1 = Thread(target = count_lines, args=('expressions.txt', expression_list))
+thread2 = Thread(target = count_lines, args=('answers.txt', answers_list))
 
-# thread1.start()
-# thread2.start()
+thread1.start()
+thread2.start()
 
-# thread1.join()
-# thread2.join()
-# print('finished counting lines!')
-# print('Expressions: ')
-# print(expression_list)
-# print('Answers: ')
-# print(answers_list)
+thread1.join()
+thread2.join()
+print('finished counting lines!')
+print('Expressions: ')
+print(expression_list)
+print('Answers: ')
+print(answers_list)
 
-# def readExpressions():
-#     with open('expressions.txt', 'r') as file:
-#         x = len(file.readlines())
-#         print('The total number of lines in expressions.txt ', x)
+################## 
+# with inheritance
+##################
 
+class MyThread(Thread):
+    def __init__(self, filename, datalist):
+        Thread.__init__(self)
+        self.filename = filename
+        self.datalist = datalist
+    def count_lines(self, filename, datalist):
+        with open(filename, 'r') as f:
+            lines = f.readlines()
+            print('numbers of lines in {} '.format(filename), len(lines))
+            for line in lines:
+                datalist.append(line)
+
+expression_list = []
+answers_list = []
+if __name__ == '__main__':
+    t1 = MyThread('expressions.txt', expression_list,)
+    t2 = MyThread('answers.txt', answers_list,)
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+print('Expressions: ', expression_list)
+print('Answers: ', answers_list)
     
 ########### 
 # problem 5

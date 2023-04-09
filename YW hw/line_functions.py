@@ -17,6 +17,9 @@ def midpoint(x1, y1, x2, y2):
     calc3 = calc1, calc2
     print(calc3)
 
+
+print('hello')
+
 # X1 = int(input('Enter in x-coordinate for 1st point: '))
 # Y1 = int(input('Enter in y-coordinate for 1st point: '))
 
