@@ -23,14 +23,14 @@ from threading import Thread, active_count, current_thread
 # k.start()
 
 #example 1
-# class MyThread(threading.Thread):
-#     def run(self):
-#         print('run function')
+class MyThread(threading.Thread):
+    def run(self):
+        print('run function')
 
-# if __name__ == '__main__':
-#     for i in range(3):
-#         t = MyThread()
-#         t.start()
+if __name__ == '__main__':
+    for i in range(3):
+        t = MyThread()
+        t.start()
 
 ###########
 # problem 1
@@ -49,24 +49,24 @@ from threading import Thread, active_count, current_thread
 # with inheritance
 ##################
 
-# from time import sleep
+from time import sleep
 
-# class MyThread(threading.Thread):
-#     def run(self):
-#         self.letters= ['A', 'B', 'C', 'D']
-#         for letter in self.letters:
-#             print(letter)
-#             sleep(2)
-#         print('E')
+class MyThread(threading.Thread):
+    def run(self):
+        self.letters= ['A', 'B', 'C', 'D']
+        for letter in self.letters:
+            print(letter)
+            sleep(2)
+        print('E')
     
-# if __name__ == '__main__':
-#     t = MyThread()
-#     t.start()
+if __name__ == '__main__':
+    t = MyThread()
+    t.start()
     
 ###########
 # problem 2
 ###########
-from threading import Thread
+# from threading import Thread
 
 # def number_printer():
 #     for number in range(1,6,1):
@@ -83,22 +83,22 @@ from threading import Thread
 # with inheritance
 ##################
 
-# class MyThread(Thread):
-#     def number_printer(self):
-#         print('in number_printer')
-#         for number in range(1,6,1):
-#             if number == 1:
-#                 print('A')
-#             print(number)
-#             time.sleep(1)
-#         print('B')
-#     def run(self):
-#         self.number_printer()
+class MyThread(Thread):
+    def number_printer(self):
+        print('in number_printer')
+        for number in range(1,6,1):
+            if number == 1:
+                print('A')
+            print(number)
+            time.sleep(1)
+        print('B')
+    def run(self):
+        self.number_printer()
 
-# if __name__ == '__main__':
-#     thread = MyThread()
-#     thread.start()
-#     thread.join()
+if __name__ == '__main__':
+    thread = MyThread()
+    thread.start()
+    thread.join()
 
 
 
@@ -129,50 +129,50 @@ import random
 # with inheritance
 ##################
 
-# class MyThread(Thread):
-#     def __init__(self, row):
-#         Thread.__init__(self)
-#         self.row = row
-#     def run(self):
-#         product = 1
-#         for num in self.row:
-#             product *= num
-#         print('Product of row', my_list.index(self.row), 'is \n', product)
+class MyThread(Thread):
+    def __init__(self, row):
+        Thread.__init__(self)
+        self.row = row
+    def run(self):
+        product = 1
+        for num in self.row:
+            product *= num
+        print('Product of row', my_list.index(self.row), 'is \n', product)
 
-# my_list = [[random.randint(1,10) for j in range(5)] for i in range(5)]
-# print(my_list)
-# if __name__ == '__main__':
-#     threads = [MyThread(row,) for row in my_list]
-#     for thread in threads:
-#         thread.start()
-#         thread.join()
+my_list = [[random.randint(1,10) for j in range(5)] for i in range(5)]
+print(my_list)
+if __name__ == '__main__':
+    threads = [MyThread(row,) for row in my_list]
+    for thread in threads:
+        thread.start()
+        thread.join()
 
 ###########
 # problem 4- skipped
 ###########
 
-expression_list = []
-answers_list = []
+# expression_list = []
+# answers_list = []
 
-def count_lines(filename, data_list):
-    with open(filename, 'r') as f:
-        lines = f.readlines()
-        print('numbers of lines in {} '.format(filename), len(lines))
-        for line in lines:
-            data_list.append(line)
-thread1 = Thread(target = count_lines, args=('expressions.txt', expression_list))
-thread2 = Thread(target = count_lines, args=('answers.txt', answers_list))
+# def count_lines(filename, data_list):
+#     with open(filename, 'r') as f:
+#         lines = f.readlines()
+#         print('numbers of lines in {} '.format(filename), len(lines))
+#         for line in lines:
+#             data_list.append(line)
+# thread1 = Thread(target = count_lines, args=('expressions.txt', expression_list))
+# thread2 = Thread(target = count_lines, args=('answers.txt', answers_list))
 
-thread1.start()
-thread2.start()
+# thread1.start()
+# thread2.start()
 
-thread1.join()
-thread2.join()
-print('finished counting lines!')
-print('Expressions: ')
-print(expression_list)
-print('Answers: ')
-print(answers_list)
+# thread1.join()
+# thread2.join()
+# print('finished counting lines!')
+# print('Expressions: ')
+# print(expression_list)
+# print('Answers: ')
+# print(answers_list)
 
 ################## 
 # with inheritance
@@ -223,20 +223,20 @@ print('Answers: ', answers_list)
 # with inheritance
 ##################
 
-# class MyThread(Thread):
-#     def generate_nums(self):
-#         for i in range(0,101):
-#             print(random.randint(0,100))
-#         print('the thread has finished execution')
-#     def run(self):
-#         self.generate_nums()
-# if __name__ == '__main__':
-#     nums_thread = MyThread()
-#     nums_thread.start()
+class MyThread(Thread):
+    def generate_nums(self):
+        for i in range(0,101):
+            print(random.randint(0,100))
+        print('the thread has finished execution')
+    def run(self):
+        self.generate_nums()
+if __name__ == '__main__':
+    nums_thread = MyThread()
+    nums_thread.start()
 
-#     while nums_thread.is_alive():
-#         pass
-#     print('DONE with program')
+    while nums_thread.is_alive():
+        pass
+    print('DONE with program')
 
 ###########
 # problem 6
@@ -322,16 +322,12 @@ if __name__ =='__main__':
     time.sleep(2)
     t1.start()
     t1.join()
-
     t2.start()
     t2.join()
-
     t3.start()
     t3.join()
-
     t4.start()
     t4.join()
-
     t5.start()
     t5.join()
 

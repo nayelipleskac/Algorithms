@@ -1,6 +1,11 @@
 import socket, atexit, pygame, time
 from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP, K_s, K_w
 from pygame.locals import *
+from threading import Thread
+
+################################ 
+# fix og code to make cood. send
+
 
 class Player:
     def __init__(self):
@@ -17,19 +22,49 @@ class X(Player):
     def __init__(self):
         super().__init__()
         self.v = 'x'
+# not used 
+class MyThread(Thread):
+    def __init__(self, x, y, socket):
+        Thread.__init__(self)
+        self.socket = socket
+        self.x = x
+        self.y = y
+    def send_points(self):
+        # data = (str(self.x), ',', str(self.y))
+        data =('client: ','x: {}, y: {}'.format(self.x,self.y)) 
+        self.socket.send(data.encode())
+    def run(self):
+        self.send_points()
 
-class TicTacToe():
-    def __init__(self): 
+
+def create_thread(target):
+    t = Thread(target=target) #argument - target function
+    t.daemon = True
+    t.start()        
+class Client(socket.socket):
+    def __init__(self, host = socket.gethostname(), port = 1234):
+        super().__init__(socket.AF_INET, socket.SOCK_STREAM)
+        self.host = host #localhost
+        self.port = port
+        self.screen = None
+        self.player = 'o'
+        self.na = socket.gethostname()
         self.board= {1:' ',2:' ',3:' ',4:' ',5:' ',6:' ',7:' ',8:' ',9:' '}
-        self.p = 'o'
-        self.s = None
         self.running = True
-    def update(self, pos, val):
-        self.board[pos] = val
-    # def start(self):
-    #     self.c.start()
-    def play(self, socket):
-        self.s = socket
+
+    def accept_message(self):
+        while True:
+            data = self.recv(1024).decode()
+            if not data:
+                break
+            print('Received', data)
+
+    def start(self):
+        self.connect((self.host, self.port))
+        self.sendall('Client: connection established'.encode())
+        print('Client: Connected to {}'.format(self.host, self.na))
+        self.play()
+    def play(self):
         pygame.init()
         self.screen = pygame.display.set_mode((600,600))
         pygame.display.set_caption("Tic-Tac-Toe client")
@@ -38,90 +73,26 @@ class TicTacToe():
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
         print('client: set up game board')
         while self.running:
-            data = self.s.recv(1024).decode()
-            print('server pos: ', data)
-            if not data:
-                print(data)
-
+            create_thread(self.accept_message)
             pygame.display.update()
+            # data = self.s.recv(1024).decode()
+
             for event in pygame.event.get():
-                print('Client: in pygame event loop')
                 if event.type == pygame.QUIT:
                     pygame.quit()
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
-                    print('client: got x,y pos')
-                    x,y = pygame.mouse.get_pos()
-                    print('client: ','x: {}, y: {}'.format(x,y)) 
-                    # self.s.sendall(data.encode())
-        
-class Client():
-    def __init__(self):
-        self.host = '127.0.0.1' #localhost
-        self.port = 1234
-        self.screen = None
-        self.player = 'o'
-        self.g = TicTacToe()
-        self.connect()
-        # self.g = TicTacToe()
-    def start(self):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((self.host, self.port))
-            print('Client: Connected to ', self.host)
-            s.sendall('Client: connection established'.encode())
-            self.g.play(s)
-
-
-    def startGame(self):
-        print('Starting game...')
-        self.player = 'x'
-        pygame.init()
-        self.screen = pygame.display.set_mode((600, 600))
-        pygame.display.set_caption("Tic-Tac-Toe client")
-        for x in range(0,600,200): #creating the board on screen
-            for y in range(0,600,200):
-                pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
-        print('Client: set up board')
-        for event in pygame.event.get(): #pygame event loop above sockets
-            if event.type == pygame.QUIT:
-                pygame.quit()
-            # if self.player == 'o':
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                x,y= pygame.mouse.get_pos()
-                # x,y = event.pos
-                print('x:',x,'y',y)
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: #socket is below pygame event loop
-                s.connect((self.host, self.port)) #reopening socket for new thread
-                print('Client: connected')
-                while True:
-                    # self.player = 'o'
-                    data = s.recv(1024) #recv x,y message to server 
-                    print('recieved from server: ', data.decode())
-                    # z=data.split(',')
-                    # print('Client split data: ', z)                  
-                    # data = (str(event.pos[0]) + "," + str(event.pos[1])).encode()
-                    # data = str(x) + ',' + str(y)
-                    data = b'client message'
-                    s.send(data.encode())  
-                    print('Sending data to server...')
-                    pygame.display.update()
-                    # self.player = 'x'
-                    
-                    ## find what box x and y coord. are in from server
-                    # if x in range(0,200) and y in range(0,200):
-                        # self.drawX(data)
-                    #client mouse position
+                    x,y = event.pos
+                    print('x:{}, y:{}'.format(x,y))
+                    self.sendall('{},{}'.format(x,y).encode())
                         
-                    
                 
     def drawO(self,x,y,screen):
         pygame.draw.circle(screen,(255,255,255),(x,y),70,1) #o 
    
 
 
-if __name__ == '__main__':
-    app = TicTacToe()
-    client = Client()
+if __name__ == '__main__':   
+    client = Client('127.0.0.1', 1234)
     client.start()
-    # client.start()
 
 
