@@ -3,9 +3,6 @@ from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP, K_s, K_w
 from pygame.locals import *
 from threading import Thread
 
-################################ 
-# fix og code to make cood. send
-
 
 class Player:
     def __init__(self):
@@ -51,13 +48,18 @@ class Client(socket.socket):
         self.na = socket.gethostname()
         self.board= {1:' ',2:' ',3:' ',4:' ',5:' ',6:' ',7:' ',8:' ',9:' '}
         self.running = True
+        self.turn = False
 
     def accept_message(self):
         while True:
             data = self.recv(1024).decode()
             if not data:
                 break
-            print('Received', data)
+            print('Received \n', data)
+            x,y = data.split(',',1)
+            self.drawX(int(x),int(y))
+            self.turn = True
+        # print('client: ',self.turn)
 
     def start(self):
         self.connect((self.host, self.port))
@@ -72,6 +74,7 @@ class Client(socket.socket):
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
         print('client: set up game board')
+        print('SERVER STARTS FIRST')
         while self.running:
             create_thread(self.accept_message)
             pygame.display.update()
@@ -80,14 +83,35 @@ class Client(socket.socket):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1:
+                
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button ==1 and self.turn == True:
                     x,y = event.pos
                     print('x:{}, y:{}'.format(x,y))
                     self.sendall('{},{}'.format(x,y).encode())
-                        
-                
-    def drawO(self,x,y,screen):
-        pygame.draw.circle(screen,(255,255,255),(x,y),70,1) #o 
+                    self.drawO(x,y)
+                    # self.boxes(x,y)
+                    self.turn = False
+                    print('client just played, server\'s turn')  
+   
+            # print('client turn is: ', self.turn)   
+    def drawX(self,x,y):
+        #send box number over
+        pygame.draw.line(self.screen,(255,255,255),(x-50,y-50),(x+50,y+50),1) 
+        pygame.draw.line(self.screen,(255,255,255),(x+50,y-50),(x-50,y+50),1)            
+    def drawO(self,x,y):
+        pygame.draw.circle(self.screen,(255,255,255),(x,y),70,1) 
+    def boxes(self, x, y):
+        if x in range(0,200) and y in range(0,200): #box 1
+            self.update_board(1, 'o')
+        if x in range(200,400) and y in range(0,200): #box 2
+            self.update_board(2, 'o')
+        if x in range(400,600) and y in range(0,200): #box 3
+            self.update_board(3,'o')
+    def update_board(self,pos, val):
+        # def update(self, pos, val):
+        self.board[pos] = val
+        print('client: ', self.board)
+
    
 
 
