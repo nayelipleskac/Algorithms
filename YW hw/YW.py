@@ -157,11 +157,39 @@
 # march 19
 ##########
 
-def giveName(name):
-    if name == '':
-        print('Hello Guys')
-    else:
-        print('Hello', name)
+# def giveName(name):
+#     if name == '':8
 
-nameInput = input('Hello! What\'s your name? ')
-giveName(nameInput)
+#         print('Hello Guys')
+#     else:
+#         print('Hello', name)
+
+# nameInput = input('Hello! What\'s your name? ')
+# giveName(nameInput)
+
+#hw for april 9th
+# numList = []
+# while True: 
+#     numInput = int(input('Enter a random number: '))
+#     newList = [numInput]
+#     numList = newList + numList
+#     # print(newList)
+#     if numInput == -1:
+#         print(numList)
+#         print('done!')
+#         break
+#hw for april 9th
+numbers = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+def square(numsList):
+    for sublist in range(len(numsList)): 
+        for num in range(len(numsList[sublist])):
+            square_num = num **2
+            numsList[sublist][num] = numsList[sublist][num] ** 2
+    print(numsList)
+print(numbers)
+square(numbers)
+
+def addRandomNumber(numbers):
+    pass
+addRandomNumber(numbers)
