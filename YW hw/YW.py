@@ -178,9 +178,12 @@
 #         print(numList)
 #         print('done!')
 #         break
+
 #hw for april 9th
+import random
 numbers = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
+#A. replace all the elements with the square of the numbers and print the list
 def square(numsList):
     for sublist in range(len(numsList)): 
         for num in range(len(numsList[sublist])):
@@ -190,6 +193,24 @@ def square(numsList):
 print(numbers)
 square(numbers)
 
-def addRandomNumber(numbers):
-    pass
+#B- adding random nums
+def addRandomNumber(numbers): #to each sublist
+    for sublist in numbers:
+        sublist.append(random.randint(1,100))
+print(numbers)
 addRandomNumber(numbers)
+print(numbers)
+
+#C. replace all the elements with 0 and print the list
+def replace(numbers): 
+    for sublist in range(len(numbers)):
+        for num in range(len(numbers[sublist])):
+            numbers[sublist][num] = numbers[sublist][num] * 0
+    print(numbers)
+replace(numbers)
+
+#april 30th
+
+nameInput= input('Enter your name: ')
+languageInput= input('How many languages do you speak: ')
+print(nameInput, 'can speak', languageInput, 'languages!')

@@ -96,6 +96,7 @@ class Server(socket.socket):
             self.boxes(int(x),int(y),'o')
             self.turn = True
             self.winner()
+            break
     def send_message(self):
         x,y= self.pos
         print('x: {}, y: {}'.format(x,y))
@@ -131,42 +132,29 @@ class Server(socket.socket):
             self.update_board(8, player)
         elif x in range(400,600) and y in range(400,600): #box 9
             self.update_board(9, player)
+    def displayWinner(self, n1, n2, n3, player):
+        if self.board[n1]==player and self.board[n2]== player and self.board[n3] == player:
+            self.printWinner(player)
     def winner(self):
-        # if len(self.board.values()) >= 3:
-        if self.board[1]=='x' and self.board[2]== 'x' and self.board[3] == 'x':
-            self.printWinner('x')
-        elif self.board[1]=='o' and self.board[2]== 'o' and self.board[3] == 'o':
-            self.printWinner('o')
-        elif self.board[4]=='x' and self.board[5]== 'x' and self.board[6] == 'x':
-            self.printWinner('x')
-        elif self.board[4]=='o' and self.board[5]== 'o' and self.board[6] == 'o':
-            self.printWinner('o')
-        elif self.board[7]=='x' and self.board[8]== 'x' and self.board[9] == 'x':
-            self.printWinner('x')
-        elif self.board[7]=='o' and self.board[8]== 'o' and self.board[9] == 'o':
-            self.printWinner('o')
-        elif self.board[1]=='x' and self.board[5]== 'x' and self.board[9] == 'x':
-            self.printWinner('x')
-        elif self.board[1]=='o' and self.board[5]== 'o' and self.board[9] == 'o':
-            self.printWinner('o')
-        elif self.board[7]=='x' and self.board[5]=='x' and self.board[3] == 'x':
-            self.printWinner('x')
-        elif self.board[7]=='o' and self.board[5]=='o' and self.board[3] == 'o':
-            self.printWinner('o')
-        elif self.board[2]== 'x' and self.board[5]== 'x' and self.board[8] == 'x':
-            self.printWinner('x')
-        elif self.board[2]== 'o' and self.board[5]== 'o' and self.board[8] == 'o':
-            self.printWinner('o')
-        elif self.board[1]=='x' and self.board[4]== 'x' and self.board[7] == 'x':
-            self.printWinner('x')
-        elif self.board[1]=='o' and self.board[4]== 'o' and self.board[7] == 'o':
-            self.printWinner('o')
-        elif self.board[3]=='x' and self.board[6]=='x' and self.board[9] == 'x':
-            self.printWinner('x')
-        elif self.board[3]=='o' and self.board[6]=='o' and self.board[9] == 'o':
-            self.printWinner('o')
-        elif (' ' not in self.board.values()):
+        self.displayWinner(1,2,3,'x')
+        self.displayWinner(1,2,3,'o')
+        self.displayWinner(4,5,6,'x')
+        self.displayWinner(4,5,6,'o')
+        self.displayWinner(7,8,9,'x')
+        self.displayWinner(7,8,9,'o')
+        self.displayWinner(1,5,9,'x')
+        self.displayWinner(1,5,9,'o')
+        self.displayWinner(7,5,3, 'x')
+        self.displayWinner(7,5,3, 'o')
+        self.displayWinner(2,5,8, 'x')
+        self.displayWinner(2,5,8, 'o')
+        self.displayWinner(1,4,7, 'x')
+        self.displayWinner(1,4,7, 'o')
+        self.displayWinner(3,6,9, 'x')
+        self.displayWinner(3,6,9, 'o')
+        if (' ' not in self.board.values()):
             print('tie!')
+    
     def update_board(self,pos, val):
         # def update(self, pos, val):
         self.board[pos] = val
@@ -176,10 +164,12 @@ class Server(socket.socket):
         print('PLAYER {} WINS'.format(indicator))
         self.showtext('PLAYER {} WINS'.format(indicator), 200,20)
         pygame.display.update()
+        pygame.quit()
+        self.close()
+        print('closing server socket conn')
         
    
 if __name__ == '__main__':
-    # player = X() #server is X
     server = Server('127.0.0.1', 1234)
     server.start()
 

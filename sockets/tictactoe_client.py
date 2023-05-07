@@ -4,36 +4,6 @@ from pygame.locals import *
 from threading import Thread
 
 
-# class Player:
-#     def __init__(self):
-#         self.v = None
-#     def value(self):
-#         return self.v
-
-# class O(Player):
-#     def __init__(self):
-#         Player().__init__()
-#         self.v = 'o'
-
-# class X(Player):
-#     def __init__(self):
-#         super().__init__()
-#         self.v = 'x'
-# # not used 
-# class MyThread(Thread):
-#     def __init__(self, x, y, socket):
-#         Thread.__init__(self)
-#         self.socket = socket
-#         self.x = x
-#         self.y = y
-#     def send_points(self):
-#         # data = (str(self.x), ',', str(self.y))
-#         data =('client: ','x: {}, y: {}'.format(self.x,self.y)) 
-#         self.socket.send(data.encode())
-#     def run(self):
-#         self.send_points()
-
-
 def create_thread(target):
     t = Thread(target=target) #argument - target function
     t.daemon = True
@@ -81,11 +51,6 @@ class Client(socket.socket):
         for x in range(0,600,200):
             for y in range(0,600,200):
                 pygame.draw.rect(self.screen,(255,255,255), (x,y,200,200),1)
-        # btn_rect = pygame.Rect(0,600-50,100,50)
-        # font = pygame.font.Font(None,36)
-        # btn_label = font.render('Close Client', True, (255,255,255))
-        # pygame.draw.rect(self.screen,(0,128,255), btn_rect )
-        # self.screen.blit(btn_label, btn_rect.center)
 
         print('client: set up game board')
         print('SERVER STARTS FIRST')
@@ -107,6 +72,7 @@ class Client(socket.socket):
                     self.turn = False
                     print('client just played, server\'s turn')  
                     self.winner()
+                    break
 
     def drawX(self,x,y):
         #send box number over
@@ -133,56 +99,48 @@ class Client(socket.socket):
             self.update_board(8, player)
         elif x in range(400,600) and y in range(400,600): #box 9
             self.update_board(9, player)
+    def displayWinner(self, n1, n2, n3, player):
+        if self.board[n1]==player and self.board[n2]== player and self.board[n3] == player:
+            self.printWinner(player)
     def winner(self):
-        # if len(self.board.values()) >= 3:
-        if self.board[1]=='x' and self.board[2]== 'x' and self.board[3] == 'x':
-            self.printWinner('x')
-        elif self.board[1]=='o' and self.board[2]== 'o' and self.board[3] == 'o':
-            self.printWinner('o')
-        elif self.board[4]=='x' and self.board[5]== 'x' and self.board[6] == 'x':
-            self.printWinner('x')
-        elif self.board[4]=='o' and self.board[5]== 'o' and self.board[6] == 'o':
-            self.printWinner('o')
-        elif self.board[7]=='x' and self.board[8]== 'x' and self.board[9] == 'x':
-            self.printWinner('x')
-        elif self.board[7]=='o' and self.board[8]== 'o' and self.board[9] == 'o':
-            self.printWinner('o')
-        elif self.board[1]=='x' and self.board[5]== 'x' and self.board[9] == 'x':
-            self.printWinner('x')
-        elif self.board[1]=='o' and self.board[5]== 'o' and self.board[9] == 'o':
-            self.printWinner('o')
-        elif self.board[7]=='x' and self.board[5]=='x' and self.board[3] == 'x':
-            self.printWinner('x')
-        elif self.board[7]=='o' and self.board[5]=='o' and self.board[3] == 'o':
-            self.printWinner('o')
-        elif self.board[2]== 'x' and self.board[5]== 'x' and self.board[8] == 'x':
-            self.printWinner('x')
-        elif self.board[2]== 'o' and self.board[5]== 'o' and self.board[8] == 'o':
-            self.printWinner('o')
-        elif self.board[1]=='x' and self.board[4]== 'x' and self.board[7] == 'x':
-            self.printWinner('x')
-        elif self.board[1]=='o' and self.board[4]== 'o' and self.board[7] == 'o':
-            self.printWinner('o')
-        elif self.board[3]=='x' and self.board[6]=='x' and self.board[9] == 'x':
-            self.printWinner('x')
-        elif self.board[3]=='o' and self.board[6]=='o' and self.board[9] == 'o':
-            self.printWinner('o')
-        elif (' ' not in self.board.values()):
+        self.displayWinner(1,2,3,'x')
+        self.displayWinner(1,2,3,'o')
+        self.displayWinner(4,5,6,'x')
+        self.displayWinner(4,5,6,'o')
+        self.displayWinner(7,8,9,'x')
+        self.displayWinner(7,8,9,'o')
+        self.displayWinner(1,5,9,'x')
+        self.displayWinner(1,5,9,'o')
+        self.displayWinner(7,5,3, 'x')
+        self.displayWinner(7,5,3, 'o')
+        self.displayWinner(2,5,8, 'x')
+        self.displayWinner(2,5,8, 'o')
+        self.displayWinner(1,4,7, 'x')
+        self.displayWinner(1,4,7, 'o')
+        self.displayWinner(3,6,9, 'x')
+        self.displayWinner(3,6,9, 'o')
+
+        if (' ' not in self.board.values()):
             print('tie!')
         
     def update_board(self,pos, val):
         # def update(self, pos, val):
         self.board[pos] = val
         print('client: ', self.board)
+        
     def printWinner(self,indicator):
         print('PLAYER {} WINS'.format(indicator))
         self.showtext('PLAYER {} WINS'.format(indicator), 200,20)
         pygame.display.update()
+        # time.sleep(3)
+        pygame.quit()
+        self.close()
+        print('closing client socket conn')
+        
 
 if __name__ == '__main__':   
     client = Client('127.0.0.1', 1234)
     client.start()
 
-#s.close() via a bttn on scrn
 
 
