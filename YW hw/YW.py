@@ -180,37 +180,69 @@
 #         break
 
 #hw for april 9th
-import random
-numbers = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+# import random
+# numbers = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 
 #A. replace all the elements with the square of the numbers and print the list
-def square(numsList):
-    for sublist in range(len(numsList)): 
-        for num in range(len(numsList[sublist])):
-            square_num = num **2
-            numsList[sublist][num] = numsList[sublist][num] ** 2
-    print(numsList)
-print(numbers)
-square(numbers)
+# def square(numsList):
+#     for sublist in range(len(numsList)): 
+#         for num in range(len(numsList[sublist])):
+#             square_num = num **2
+#             numsList[sublist][num] = numsList[sublist][num] ** 2
+#     print(numsList)
+# print(numbers)
+# square(numbers)
 
 #B- adding random nums
-def addRandomNumber(numbers): #to each sublist
-    for sublist in numbers:
-        sublist.append(random.randint(1,100))
-print(numbers)
-addRandomNumber(numbers)
-print(numbers)
+# def addRandomNumber(numbers): #to each sublist
+#     for sublist in numbers:
+#         sublist.append(random.randint(1,100))
+# print(numbers)
+# addRandomNumber(numbers)
+# print(numbers)
 
 #C. replace all the elements with 0 and print the list
-def replace(numbers): 
-    for sublist in range(len(numbers)):
-        for num in range(len(numbers[sublist])):
-            numbers[sublist][num] = numbers[sublist][num] * 0
-    print(numbers)
-replace(numbers)
+# def replace(numbers): 
+#     for sublist in range(len(numbers)):
+#         for num in range(len(numbers[sublist])):
+#             numbers[sublist][num] = numbers[sublist][num] * 0
+#     print(numbers)
+# replace(numbers)
 
-#april 30th
+##april 30th
 
-nameInput= input('Enter your name: ')
-languageInput= input('How many languages do you speak: ')
-print(nameInput, 'can speak', languageInput, 'languages!')
+# nameInput= input('Enter your name: ')
+# languageInput= input('How many languages do you speak: ')
+# print(nameInput, 'can speak', languageInput, 'languages!')
+
+##may 28th
+# first_name_input = input('Enter your first name: ')
+# last_name_input = input('Enter your last name: ')
+# print(first_name_input[0] + last_name_input[0])
+
+## Find the data type of the following:
+
+# num1 = 6452
+# num2= -635.125
+# s1 = '@#$%&'
+# s2=  'jim-jam-joe'
+# num3= 717171
+# num4= 7
+# num5 = 000.000111
+# print(type(num1))
+# print(type(num2))
+# print(type(s1))
+# print(type(s2))
+# print(type(num3))
+# print(type(num4))
+# print(type(num5))
+
+#may 30
+def create_usernames(first_name, last_name, fav_num):
+    username = first_name + '_' + last_name + '_' + fav_num
+    print('here is your username! \n', username)
+
+first_name_input =input('what is your first name? : ')
+last_name_input =input('what is your last name? : ')
+fav_num_input = input('and finally what is your favorite number? : ')
+create_usernames(first_name_input, last_name_input, fav_num_input)
