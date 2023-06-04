@@ -9,10 +9,10 @@ from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
 
-
 #multithreading imports
 import threading, time, random, string
 from threading import Thread, active_count, current_thread
+from datetime import datetime
 
 def create_thread(target):
     t= Thread(target=target)
@@ -41,38 +41,37 @@ class Game(socket.socket, Tk):
         self.conn, addr = self.accept()  #accept connection 
         print('Got a connecton from ', addr)
         print('Got a connecton from ', addr)
-        # self.conn.send('thank you for connecting '.encode())
         self.pack_components()
     
     def pack_components(self):
         self.top_frame.pack(pady=10)
         self.text_area.pack(side = LEFT, padx= 10)
         self.text_area.tag_configure('right_align', justify='right')
+        # self.text_area.tag_configure('blue', fg='blue')
+        # self.text_area.tag_configure('red', fg='red')
         self.bottom_frame.pack(pady=10)
         self.entry.pack(padx= 10, side=LEFT)
         self.send_button.pack(side= LEFT)
 
-    def send_message(self):
+    def send_message(self): #server is blue, client is red
         message = self.entry.get()
-        self.text_area.insert(END, message + '\n', 'right_align')
+        
+        current_time = datetime.now().strftime('%H:%M:%S')
+        print(current_time)
+        self.text_area.insert(END, message + ' : ' + current_time + '\n', 'right_align')
         self.entry.delete(0, END)
         self.conn.send(message.encode())
-        # message = self.conn.recv(1024).decode('utf-8')
-        # print('Message recieved: ', message)
         create_thread(self.accept_message)
 
     def accept_message(self):
         while True:
             data = self.conn.recv(1024).decode('utf-8')
             print('Received from client: ', data)
-            self.text_area.insert(END, data + '\n', 'left_align')
-
-            # chat = Label(self.top_frame, text = data, fg = 'red', anchor = 'w')
-            # chat.pack(side = TOP, fill = X)
-
+            current_time = datetime.now().strftime('%H:%M:%S')
+            print(current_time)
+            self.text_area.insert(END, data + ' : ' + current_time + '\n', 'left_align')
 
 if __name__ == '__main__':  
-
     game = Game('127.0.0.1', 1234)
     game.start()
     game.mainloop()

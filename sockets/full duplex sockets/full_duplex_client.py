@@ -15,6 +15,7 @@ import random, time
 #multithreading imports
 import threading, time, random, string
 from threading import Thread, active_count, current_thread
+from datetime import datetime
 
 def create_thread(target):
     t= Thread(target=target)
@@ -33,14 +34,13 @@ class Game(socket.socket,Tk):
         self.bottom_frame= Frame(self)
         self.entry = Entry(self.bottom_frame, width= 40)
         self.send_button = Button(self.bottom_frame, text = 'Send', command = self.send_message)
-        
+        self.timestamp_label = Label(self.top_frame, text = '')
         self.host = host
         self.port = port
         self.na = socket.gethostname()
     def start(self):
         print('host:', self.host)
         self.connect((self.host, self.port))
-        # self.sendall('Client: connection established'.encode())
         print('Client: Connected to {}'.format(self.host, self.na))
         self.pack_components()
         create_thread(self.accept_message)
@@ -49,28 +49,34 @@ class Game(socket.socket,Tk):
         self.top_frame.pack(pady=10)
         self.text_area.pack(side = LEFT, padx= 10)
         self.text_area.tag_configure('right_align', justify='right')
+        # self.text_area.tag_configure('red', fg='red')
+        # self.text_area.tag_configure('blue', fg='blue')
         self.bottom_frame.pack(pady=10)
         self.entry.pack(padx= 10, side=LEFT)
         self.send_button.pack(side= LEFT)
+        self.timestamp_label.pack()
+
     def send_message(self):
-        #self.accept message
         create_thread(self.accept_message)
-        #enter message to send
         message = self.entry.get()
-        self.text_area.insert(END, message + '\n', 'right_align')
+        current_time = datetime.now().strftime('%H:%M:%S')
+        print(current_time)
+        self.text_area.insert(END, message + ' : ' + current_time + '\n','right_align')
+
         self.entry.delete(0, END)
         self.send(message.encode())
-    def accept_message(self):
+    def accept_message(self): #client is blue server is red
         while True:
-            data = self.recv(1024).decode()
+            data = self.recv(1024).decode('utf-8')
             if not data:
                 break
             print('Received from server: ', data)
-            self.text_area.insert(END, data + '\n', 'left_align')
-                
+            current_time = datetime.now().strftime('%H:%M:%S')
+            print(current_time)
+            self.text_area.insert(END, data + ' : ' + current_time + '\n', 'left_align')
+            
 
 if __name__ == '__main__':          
- 
     game = Game('127.0.0.1', 1234)
     game.start()
     game.mainloop()
