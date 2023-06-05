@@ -46,16 +46,14 @@ class Game(socket.socket, Tk):
     def pack_components(self):
         self.top_frame.pack(pady=10)
         self.text_area.pack(side = LEFT, padx= 10)
-        self.text_area.tag_configure('right_align', justify='right')
-        # self.text_area.tag_configure('blue', fg='blue')
-        # self.text_area.tag_configure('red', fg='red')
+        self.text_area.tag_configure('right_align', justify='right', foreground = 'red')
+        self.text_area.tag_configure('left_align', justify = 'left', foreground='blue')
         self.bottom_frame.pack(pady=10)
         self.entry.pack(padx= 10, side=LEFT)
         self.send_button.pack(side= LEFT)
 
     def send_message(self): #server is blue, client is red
         message = self.entry.get()
-        
         current_time = datetime.now().strftime('%H:%M:%S')
         print(current_time)
         self.text_area.insert(END, message + ' : ' + current_time + '\n', 'right_align')

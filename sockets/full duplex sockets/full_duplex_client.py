@@ -48,9 +48,8 @@ class Game(socket.socket,Tk):
     def pack_components(self):
         self.top_frame.pack(pady=10)
         self.text_area.pack(side = LEFT, padx= 10)
-        self.text_area.tag_configure('right_align', justify='right')
-        # self.text_area.tag_configure('red', fg='red')
-        # self.text_area.tag_configure('blue', fg='blue')
+        self.text_area.tag_configure('right_align', justify='right', foreground = 'red')
+        self.text_area.tag_configure('left_align', justify = 'left', foreground='blue')
         self.bottom_frame.pack(pady=10)
         self.entry.pack(padx= 10, side=LEFT)
         self.send_button.pack(side= LEFT)
@@ -65,7 +64,7 @@ class Game(socket.socket,Tk):
 
         self.entry.delete(0, END)
         self.send(message.encode())
-    def accept_message(self): #client is blue server is red
+    def accept_message(self):
         while True:
             data = self.recv(1024).decode('utf-8')
             if not data:
