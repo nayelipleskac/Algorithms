@@ -238,11 +238,47 @@
 # print(type(num5))
 
 #may 30
-def create_usernames(first_name, last_name, fav_num):
-    username = first_name + '_' + last_name + '_' + fav_num
-    print('here is your username! \n', username)
+# def create_usernames(first_name, last_name, fav_num):
+#     username = first_name + '_' + last_name + '_' + fav_num
+#     print('here is your username! \n', username)
 
-first_name_input =input('what is your first name? : ')
-last_name_input =input('what is your last name? : ')
-fav_num_input = input('and finally what is your favorite number? : ')
-create_usernames(first_name_input, last_name_input, fav_num_input)
+# first_name_input =input('what is your first name? : ')
+# last_name_input =input('what is your last name? : ')
+# fav_num_input = input('and finally what is your favorite number? : ')
+# create_usernames(first_name_input, last_name_input, fav_num_input)
+
+#june 6
+books = {'dystopian':4, 'romance': 5, 'fantasy': 7, 'mystery': 3}
+print('Huray! You just went to the bookstore!')
+
+def bookstore(type):
+    q1 = input('Did you get any {} books? y/n '.format(type))
+    if q1 == 'y':
+        quantity = int(input('How many? '))
+        books[type] += quantity
+    elif q1 == 'n':
+        pass
+bookstore('dystopian')
+bookstore('romance')
+bookstore('fantasy')
+bookstore('mystery')
+print(books)
+
+# q2 = input('Did you get any romance books? y/n ')
+# if q2 == 'y':
+#     quantity = int(input('How many? '))
+#     books['romance'] += quantity
+# elif q2 == 'n':
+#     pass
+# q3 = input('Did you get any fantasy books? y/n ')
+# if q3 == 'y':
+#     quantity = int(input('How many? '))
+#     books['fantasy'] += quantity
+# elif q3 == 'n':
+#     pass
+# q4 = input('Did you get any mystery books? y/n ')
+# if q4 == 'y':
+#     quantity = int(input('How many? '))
+#     books['mystery'] += quantity
+# elif q4 == 'n':
+#     pass
