@@ -248,21 +248,21 @@
 # create_usernames(first_name_input, last_name_input, fav_num_input)
 
 #june 6
-books = {'dystopian':4, 'romance': 5, 'fantasy': 7, 'mystery': 3}
-print('Huray! You just went to the bookstore!')
+# books = {'dystopian':4, 'romance': 5, 'fantasy': 7, 'mystery': 3}
+# print('Huray! You just went to the bookstore!')
 
-def bookstore(type):
-    q1 = input('Did you get any {} books? y/n '.format(type))
-    if q1 == 'y':
-        quantity = int(input('How many? '))
-        books[type] += quantity
-    elif q1 == 'n':
-        pass
-bookstore('dystopian')
-bookstore('romance')
-bookstore('fantasy')
-bookstore('mystery')
-print(books)
+# def bookstore(type):
+#     q1 = input('Did you get any {} books? y/n '.format(type))
+#     if q1 == 'y':
+#         quantity = int(input('How many? '))
+#         books[type] += quantity
+#     elif q1 == 'n':
+#         pass
+# bookstore('dystopian')
+# bookstore('romance')
+# bookstore('fantasy')
+# bookstore('mystery')
+# print(books)
 
 # q2 = input('Did you get any romance books? y/n ')
 # if q2 == 'y':
@@ -282,3 +282,23 @@ print(books)
 #     books['mystery'] += quantity
 # elif q4 == 'n':
 #     pass
+
+###########
+# june 19th
+###########
+
+# Create a dictionary with 5 random numbers from 1-50 as the keys and its square as their respective value. Print the maximum and minimum values from the dictionary.
+import random
+nums= {}
+
+for x in range(5):
+    num = random.randint(1,50)
+    square = num**2
+    nums[num] = square
+
+print(nums)
+num_values =list(nums.values())
+minimum = min(num_values)
+maximum = max(num_values)
+print('min: ', minimum)
+print('max:', maximum)

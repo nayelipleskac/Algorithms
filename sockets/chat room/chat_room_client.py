@@ -63,10 +63,11 @@ class Client(socket.socket, Tk):
         # create_thread(self.accept_message)
     def send_message(self):
         # create_thread(self.accept_message)
+        username = self.loginEntry.get()
         message = self.chatEntry.get()
         current_time = datetime.now().strftime('%H:%M:%S')
         print(current_time)
-        self.chatText.insert(END, message + ' : ' + current_time + '\n','right_align')
+        self.chatText.insert(END, message + ' : ' + current_time + '\n')
         self.chatEntry.delete(0, END)
         self.send(message.encode())
 
