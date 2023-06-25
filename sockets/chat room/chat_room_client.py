@@ -1,4 +1,4 @@
-#Client
+# Client
 #socket imports
 import socket, atexit, pygame, time
 from pygame.constants import KEYDOWN, KEYUP, K_DOWN, K_UP, K_s, K_w
@@ -41,33 +41,47 @@ class Client(socket.socket, Tk):
         self.chatSendButton = Button(self.chatFrame, text = 'Send', command = self.send_message)
         self.na = socket.gethostname()
     def start(self):
+        print('start function')
         self.connect((self.host, self.port))
         self.pack_components()
+        # create_thread(self.accept_message)
+
     def pack_components(self):
         self.loginFrame.pack(pady = 10)
         self.loginLabel.pack()
         self.loginEntry.pack(padx =10)
         self.loginButton.pack()
-    def accept_message(self):
-        pass
+    def accept_message(self): #accept from send_everyone in server
+        while True:
+            print('accept_message function')
+            data = self.recv(1024).decode('utf-8')
+            if not data:
+                break
+            print('Received from server: ', data)
+            current_time = datetime.now().strftime('%H:%M:%S')
+            print(current_time)
+            self.chatText.insert(END, data + ' : ' + current_time + '\n', 'center_align')
     def login(self):
         username = self.loginEntry.get()
         print(username)
-        self.loginEntry.delete(0, END)
         self.send(username.encode())
+
+        self.loginEntry.delete(0, END)
+        
         self.loginFrame.pack_forget()
         self.chatFrame.pack(fill = BOTH, padx = 10)
         self.chatText.pack()
+        self.chatText.tag_configure('center_align',justify = 'center')
         self.chatEntry.pack()
         self.chatSendButton.pack()
         # create_thread(self.accept_message)
     def send_message(self):
-        # create_thread(self.accept_message)
+        create_thread(self.accept_message)
         username = self.loginEntry.get()
         message = self.chatEntry.get()
         current_time = datetime.now().strftime('%H:%M:%S')
         print(current_time)
-        self.chatText.insert(END, message + ' : ' + current_time + '\n')
+        self.chatText.insert(END, message + ' : ' + current_time + '\n', 'center_align')
         self.chatEntry.delete(0, END)
         self.send(message.encode())
 

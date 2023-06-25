@@ -18,6 +18,7 @@ from threading import Thread, active_count, current_thread
 from datetime import datetime
 
 connections = {} #keys as username and value as client's socket obj
+conn_list = []
 
 def create_thread(target):
     t= Thread(target=target)
@@ -27,29 +28,42 @@ def create_thread(target):
 class ChatRoom(socket.socket):
     def __init__(self, host = 'localhost', port = 1234):
         super().__init__(socket.AF_INET, socket.SOCK_STREAM)
+        self.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
         self.host = host
         self.port = port
         self.conn = None
         self.bind((self.host, self.port))
-        self.listen(4)
+        self.listen(10) #
+
     def start(self): #continuously accepts new conn
         while True: 
+            print('start function')
             self.conn, addr = self.accept()  
             print('Got a connection from ', addr)
-            self.accept_message()
-            
+            create_thread(self.addUser())
+            print('DICTIONARY: ',connections)
+            print('CONN LIST: ', conn_list)
+
+    def addUser(self):
+        username = self.conn.recv(1024).decode('utf-8')
+        conn_list.append(username)
+        connections[username] = self.conn
+
     def accept_message(self): 
         while True: 
-            username = self.conn.recv(1024).decode('utf-8') #recv username from server
+            print('accept_message function')
+            username = self.conn.recv(1024).decode('utf-8') #recv username
             print('Received from client: ', username)
             connections[username] = self.conn
+            conn_list.append(username)
             print('DICTIONARY: ',connections)
+            print('CONN LIST: ', conn_list)
             #using connections dictionary, add username and socket obj? 
             #key value pair 
             self.listener(username, self.conn)
     def send_everyone(self, message):
         for clientObj in connections.values():
-            # self.conn.send(message.encode())
             clientObj.send(message.encode())
 
     def listener(self, username, conn):
