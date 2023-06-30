@@ -288,17 +288,44 @@
 ###########
 
 # Create a dictionary with 5 random numbers from 1-50 as the keys and its square as their respective value. Print the maximum and minimum values from the dictionary.
-import random
-nums= {}
+# import random
+# nums= {}
 
-for x in range(5):
-    num = random.randint(1,50)
-    square = num**2
-    nums[num] = square
+# for x in range(5):
+#     num = random.randint(1,50)
+#     square = num**2
+#     nums[num] = square
 
-print(nums)
-num_values =list(nums.values())
-minimum = min(num_values)
-maximum = max(num_values)
-print('min: ', minimum)
-print('max:', maximum)
+# print(nums)
+# num_values =list(nums.values())
+# minimum = min(num_values)
+# maximum = max(num_values)
+# print('min: ', minimum)
+# print('max:', maximum)
+
+##########
+#june 29th
+##########
+import random, time
+angelNums = [1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888, 9999]
+while True:
+    num=random.randint(1000,9999)
+    print(num)
+    time.sleep(0.5)
+    if num in angelNums:
+        print('woah- angel numbers!!')
+        time.sleep(2)
+        #continue until numbers add to 10
+        digit1 = num // 1000
+        digit2 = (num//100) % 10
+        digit3 = (num//10) % 10
+        digit4 = num % 10
+        digit_sum = digit1 + digit2 + digit3 + digit4
+        if digit_sum == 10:
+            print(num,' adds up to 10!')
+            break
+
+
+
+
+
