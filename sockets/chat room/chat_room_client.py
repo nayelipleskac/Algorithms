@@ -29,7 +29,7 @@ class Client(socket.socket, Tk):
         self.host = host
         self.port = port
         self.title('Chat Room: Client')
-        self.geometry('600x600')
+        self.geometry('500x500')
         self.loginFrame = Frame(self)
         self.loginLabel = Label(self.loginFrame, text = 'Enter your username below')
         self.loginButton = Button(self.loginFrame, command = self.login, text = 'Login')
@@ -41,9 +41,9 @@ class Client(socket.socket, Tk):
         self.chatSendButton = Button(self.chatFrame, text = 'Send', command = self.send_message)
         self.na = socket.gethostname()
     def start(self):
-        print('start function')
         self.connect((self.host, self.port))
         self.pack_components()
+        create_thread(self.accept_message)
         # create_thread(self.accept_message)
 
     def pack_components(self):
@@ -51,39 +51,39 @@ class Client(socket.socket, Tk):
         self.loginLabel.pack()
         self.loginEntry.pack(padx =10)
         self.loginButton.pack()
+        
     def accept_message(self): #accept from send_everyone in server
         while True:
-            print('accept_message function')
             data = self.recv(1024).decode('utf-8')
             if not data:
                 break
             print('Received from server: ', data)
             current_time = datetime.now().strftime('%H:%M:%S')
-            print(current_time)
-            self.chatText.insert(END, data + ' : ' + current_time + '\n', 'center_align')
+            self.chatText.insert('end', data +'\n', 'left_align')
+            print('accept_message function')
     def login(self):
         username = self.loginEntry.get()
         print(username)
         self.send(username.encode())
-
-        self.loginEntry.delete(0, END)
-        
+        # self.loginEntry.delete(0, END)
         self.loginFrame.pack_forget()
         self.chatFrame.pack(fill = BOTH, padx = 10)
         self.chatText.pack()
         self.chatText.tag_configure('center_align',justify = 'center')
+        self.chatText.tag_configure('right_align', justify='right', foreground = 'red')
+        self.chatText.tag_configure('left_align', justify = 'left', foreground='blue')
         self.chatEntry.pack()
         self.chatSendButton.pack()
-        # create_thread(self.accept_message)
-    def send_message(self):
-        create_thread(self.accept_message)
+        
+    def send_message(self): #send message from client
         username = self.loginEntry.get()
         message = self.chatEntry.get()
         current_time = datetime.now().strftime('%H:%M:%S')
-        print(current_time)
-        self.chatText.insert(END, message + ' : ' + current_time + '\n', 'center_align')
+        self.chatText.insert('end', '<'+ username + '>:'+ message + '\n', 'right_align')
+        print('send_message function')
         self.chatEntry.delete(0, END)
         self.send(message.encode())
+
 
 if __name__ == '__main__':
     client = Client('127.0.0.1', 1234)

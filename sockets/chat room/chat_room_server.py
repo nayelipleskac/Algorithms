@@ -10,6 +10,7 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog as fd
 from PIL import Image, ImageTk
+from pprint import pprint
 import random, time
 
 #multithreading imports
@@ -20,8 +21,8 @@ from datetime import datetime
 connections = {} #keys as username and value as client's socket obj
 conn_list = []
 
-def create_thread(target):
-    t= Thread(target=target)
+def create_thread(target, args=None):
+    t= Thread(target=target, args=args)
     t.daemon = True
     t.start()
 
@@ -32,47 +33,38 @@ class ChatRoom(socket.socket):
 
         self.host = host
         self.port = port
-        self.conn = None
         self.bind((self.host, self.port))
-        self.listen(10) #
+        self.listen(10) 
 
     def start(self): #continuously accepts new conn
         while True: 
             print('start function')
-            self.conn, addr = self.accept()  
+            conn, addr = self.accept()  
             print('Got a connection from ', addr)
-            create_thread(self.addUser())
-            print('DICTIONARY: ',connections)
-            print('CONN LIST: ', conn_list)
+            create_thread(self.addUser, args=(conn, addr))
+            # print('DICTIONARY: ',connections)
+            # print('CONN LIST: ', conn_list)
 
-    def addUser(self):
-        username = self.conn.recv(1024).decode('utf-8')
+    def addUser(self, conn, addr):
+        print('client connection: ', conn, 'and address: ', addr)
+        username = conn.recv(1024).decode('utf-8')
         conn_list.append(username)
-        connections[username] = self.conn
+        connections[username] = conn
+        pprint(connections, indent=4)
+        self.listener(username, conn)
 
-    def accept_message(self): 
-        while True: 
-            print('accept_message function')
-            username = self.conn.recv(1024).decode('utf-8') #recv username
-            print('Received from client: ', username)
-            connections[username] = self.conn
-            conn_list.append(username)
-            print('DICTIONARY: ',connections)
-            print('CONN LIST: ', conn_list)
-            #using connections dictionary, add username and socket obj? 
-            #key value pair 
-            self.listener(username, self.conn)
-    def send_everyone(self, message):
+    def send_everyone(self, message, source_conn):
         for clientObj in connections.values():
-            clientObj.send(message.encode())
+            if clientObj != source_conn: #skip the client that sent the message
+                clientObj.send(message.encode())
 
     def listener(self, username, conn):
         while True:
             try: 
                 message = conn.recv(1024).decode('utf-8')
-                self.send_everyone(('<' + username + '>: ' + message))
+                self.send_everyone(('<' + username + '>: ' + message), conn)
             except:
-                self.send_everyone((username + ' has left the chat'))
+                self.send_everyone((username + ' has left the chat'), conn)
                 del connections[username]
                 return #ending the thread 
 
