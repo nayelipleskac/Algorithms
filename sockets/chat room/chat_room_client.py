@@ -59,8 +59,10 @@ class Client(socket.socket, Tk):
                 break
             print('Received from server: ', data)
             current_time = datetime.now().strftime('%H:%M:%S')
-            self.chatText.insert('end', data +'\n', 'left_align')
+            self.chatText.insert('end', data + ' : ' + current_time + '\n', 'left_align')
             print('accept_message function')
+    
+
     def login(self):
         username = self.loginEntry.get()
         print(username)
@@ -69,7 +71,6 @@ class Client(socket.socket, Tk):
         self.loginFrame.pack_forget()
         self.chatFrame.pack(fill = BOTH, padx = 10)
         self.chatText.pack()
-        self.chatText.tag_configure('center_align',justify = 'center')
         self.chatText.tag_configure('right_align', justify='right', foreground = 'red')
         self.chatText.tag_configure('left_align', justify = 'left', foreground='blue')
         self.chatEntry.pack()
@@ -79,7 +80,7 @@ class Client(socket.socket, Tk):
         username = self.loginEntry.get()
         message = self.chatEntry.get()
         current_time = datetime.now().strftime('%H:%M:%S')
-        self.chatText.insert('end', '<'+ username + '>:'+ message + '\n', 'right_align')
+        self.chatText.insert('end', '<'+ username + '>: '+ message + ' : ' + current_time + '\n', 'right_align')
         print('send_message function')
         self.chatEntry.delete(0, END)
         self.send(message.encode())
