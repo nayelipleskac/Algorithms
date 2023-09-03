@@ -307,23 +307,168 @@
 #june 29th
 ##########
 import random, time
-angelNums = [1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888, 9999]
-while True:
-    num=random.randint(1000,9999)
-    print(num)
-    time.sleep(0.5)
-    if num in angelNums:
-        print('woah- angel numbers!!')
-        time.sleep(2)
-        #continue until numbers add to 10
-        digit1 = num // 1000
-        digit2 = (num//100) % 10
-        digit3 = (num//10) % 10
-        digit4 = num % 10
-        digit_sum = digit1 + digit2 + digit3 + digit4
-        if digit_sum == 10:
-            print(num,' adds up to 10!')
-            break
+# angelNums = [1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888, 9999]
+# while True:
+#     num=random.randint(1000,9999)
+#     print(num)
+#     time.sleep(0.5)
+#     if num in angelNums:
+#         print('woah- angel numbers!!')
+#         time.sleep(2)
+#         #continue until numbers add to 10
+#         digit1 = num // 1000
+#         digit2 = (num//100) % 10
+#         digit3 = (num//10) % 10
+#         digit4 = num % 10
+#         digit_sum = digit1 + digit2 + digit3 + digit4
+#         if digit_sum == 10:
+#             print(num,' adds up to 10!')
+#             break
+
+#july 3
+# train_mph = 100
+# train_time = 60
+# train_time = train_time / 4
+# train_mph = train_mph / 4
+# print('the train\'s mph is ', train_mph, 'and it takes ', train_time, 'minutes')
+
+#july 16
+# dice = int(input('how many dice: '))
+
+# def calculate_outcomes(dice):
+#     outcomes = 6** dice
+#     return outcomes
+
+# total = calculate_outcomes(dice)
+
+# print('the total outcomes are ', total, 'of rolling ', dice, 'dice')
+
+#july 23
+# import random, time
+# num1 = random.randint(1,10)
+# num2 = random.randint(1,10)
+# time_input = int(input('how many secs do you want to wait? 1-5 '))
+# time.sleep(time_input)
+# if num1 == num2:
+#     print('the nums are equal!!')
+# else:
+#     print('the nums are not equal ://')
+# a=b=c= 'Apple'
+
+# print (a)
+
+# print (b)
+ 
+# print (c)
+
+# num1 = input('Number 1: ')
+# num2 = input('Number 2: ')
+# num3 = input('Number 3: ')
+# num4 = input('Number 4: ')
+# output1 = num1+ num2+  num3+  num4
+# output2 = num1 + '' + num2 + ''+ num3 + ''+ num4
+
+# print('Output:', output1)
+# print('Output: ', output2)
+
+# input1 = input('Enter first string: ')
+# input2 = input('Enter second string: ')
+# print(input1, '\n', input2)
+# print(input1+input2, end = '')
+
+# num1 = float(input('decimal number input:  '))
+# rounded_num = round(num1, 2)
+# print(rounded_num)
+
+# name = 'nayeli'
+# num = str(9)
+# decimal = str(19.89)
+# print('My name is ' + name + ' my number is ' + num + ' and my fav decimal num is ' + decimal)
+
+
+# height = float(input('How tall are you in cm? '))
+# height = height / 30.48
+# rounded_height = round(height, 2)
+# print('so you are ', rounded_height, 'ft tall')
+
+# pi = 3.14
+# radius = 6370
+# earth_area = 4*pi*(radius^2)
+# print('the earth\s area is: ', earth_area, 'km')
+# land_area =.30 * earth_area
+# print('and the area that is land is: ', land_area, 'km')
+
+# num = '123456'
+# if '7' in num: 
+#     print('yes')
+# else: 
+#     print('no')
+# num = ((4*5)/2)*8+2/42
+# rounded_num = int(num) 
+# print(rounded_num)
+# import time
+# def swap(b1, b2):
+#     b1 = 'soda'
+#     b2 = 'milk'
+#     time.sleep(1)
+#     print('bottle one is ', b1)
+#     print('bottle two is ', b2)
+
+# bottle_one = 'milk' 
+# bottle_two = 'soda'
+# print('bottle one is ', bottle_one)
+# print('bottle two is ', bottle_two)
+# swap(bottle_one, bottle_two)
+
+# august 20
+# a=234
+# print(type(a))
+# print(str(a))
+
+# b=345.678
+# print(type(b))
+# print(int(b))
+
+# c='765'
+# print(type(c))
+# print(float(c))
+
+# d=890.345
+# print(type(d))
+# print(str(d))
+
+# e= '4765'
+# print(type(e))
+# print(int(e))
+
+# print(round(-1.0932))
+
+# print(round(98.987))
+
+# print(round(5.555))
+
+# print(round(8749))
+
+# int1 = int(input('1: '))
+# int2 = int(input('2: '))
+
+# float_val = float(f'{int1}.{int2}')
+# print('the float value is: ', float_val)
+# print('the square of the float is: ', float_val ** 2)
+
+# age = input('age: ')
+# dob = input('year of birth: ')
+# password = dob + '.' + age + '!'
+# print(password)
+
+age = 16
+age_str = str(age)
+sum_of_digits = 0
+
+for digit in age_str:
+    if digit.isdigit():
+        sum_of_digits += int(digit)
+print(f"The sum of digits in your age is: {sum_of_digits}")
 
 
 
