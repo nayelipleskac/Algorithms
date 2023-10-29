@@ -461,16 +461,242 @@ import random, time
 # password = dob + '.' + age + '!'
 # print(password)
 
-age = 16
-age_str = str(age)
-sum_of_digits = 0
+# age = 16
+# age_str = str(age)
+# sum_of_digits = 0
 
-for digit in age_str:
-    if digit.isdigit():
-        sum_of_digits += int(digit)
-print(f"The sum of digits in your age is: {sum_of_digits}")
+# for digit in age_str:
+#     if digit.isdigit():
+#         sum_of_digits += int(digit)
+# print(f"The sum of digits in your age is: {sum_of_digits}")
+
+#August 27
+# import math
+# def calculate(a, b):
+#     lcm = (a*b)//math.gcd(a,b)
+#     print('the least common multiple is: ', lcm)
 
 
+# num1 = int(input('First number: '))
+# num2 = int(input('Second number: '))
+# calculate(num1, num2)
+
+#August 31st
+
+# import math
+
+# def is_perfect_cube(num):
+#   cube_root = math.pow(num, 1/3)
+#   return cube_root.is_integer()
+
+# print(is_perfect_cube(27)) # True
+# print(is_perfect_cube(28)) # False
+
+# def count_types(input_list):
+#   float_count = 0
+#   int_count = 0 
+#   string_count = 0
+#   bool_count = 0
+  
+#   for item in input_list:
+#     if isinstance(item, float):
+#       float_count += 1
+#     elif isinstance(item, int): 
+#       int_count += 1
+#     elif isinstance(item, str):
+#       string_count += 1  
+#     elif isinstance(item, bool):
+#       bool_count += 1
+      
+#   print(f"Floats: {float_count}") 
+#   print(f"Integers: {int_count}")
+#   print(f"Strings: {string_count}")
+#   print(f"Booleans: {bool_count}")
+
+# mixed_list = [1.2, 5, "abc", 'True', 3, 2.5]
+# count_types(mixed_list)
+
+# def factors(num):
+#   factors = []
+  
+#   for i in range(1, num + 1):
+#     if num % i == 0:
+#       factors.append(i)
+      
+#   return factors
+
+# number = 120
+
+# print(factors(number))
+
+# pattern = "xoxoxo"
+
+# for i in range(3):
+#   if i%2 == 0:
+#     print(pattern)
+#   else:
+#     print(pattern[::-1])
+
+# From 1 to 40
+# for i in range(1, 41):
+#   if i%3==0 and i%2!=0:
+#     print(i, end=' ') 
+
+# print('\n')
+# # From 41 to 60   
+# sum = 0
+# for i in range(41, 61):
+#   sum += i
+# print(sum)
+
+# print('\n')
+
+# # From 61 to 100
+# for i in range(61, 101):
+#   if i%4==0:
+#     print(i, end=' ')
+# import random
+# first_sum = 0
+# second_sum = 0
+# for i in range(20):
+#     num=random.randint(1,15)
+#     if i < 10: 
+#         first_sum += num
+#     else:
+#         second_sum += num
+# print('first sum: ', first_sum)
+# print('second sum: ', second_sum)
+
+# days = int(input("Enter number of days in month: "))
+
+# print("M T W T F S S")
+
+# day = 1
+# for i in range(days//7 + 1):
+#   for j in range(7):
+#     if day <= days:
+#       print(str(day).rjust(2), end=' ')
+#       day += 1
+#     else:
+#       print('  ', end=' ')  
+#   print()
+
+# books = ['the giver', 'hunger games', 'little women', 'happy place', 'divergent']
+# books.reverse()
+# for i in books: 
+#     print(i)
+    # print('\n')
+
+###########
+#October 12
+###########
+
+# num1 = input('enter a floating point number: ')
+# try: 
+#     float_value = float(num1)
+#     decimal = float_value - int(float_value)
+#     print(f'the float of the number is: {decimal:.4f}')
+# except ValueError: 
+#     print('wrong input. please enter a floating point number...')
+
+# # Create a function that converts binary string to hex
+# str = input('enter a binary string')
+
+# input1 = input('Enter numbers for the first group separated by spaces: ')
+# group1 = set(map(int, input1.split()))
+
+# input2 = input('Enter numbers for the first group separated by spaces: ')
+# group2 = set(map(int, input2.split()))
+
+# result_group = group1-group2
+# print("Numbers in the first group after removing those in the second group:")
+# print(sorted(result_group)) 
+
+############################### 
+# converts binary string to hex
+###############################
+
+# def binary_to_hex(binary_str):
+#     # Ensure the binary string has a '0b' prefix and remove it if present
+#     if binary_str.startswith('0b'):
+#         binary_str = binary_str[2:]
+
+#     # Convert the binary string to an integer
+#     decimal_value = int(binary_str, 2)
+
+#     # Convert the decimal integer to a hexadecimal string
+#     hex_str = hex(decimal_value)
+
+#     return hex_str
 
 
+# binary_str = "11010101"
+# hexadecimal_str = binary_to_hex(binary_str)
+# print("Binary:", binary_str)
+# print("Hexadecimal:", hexadecimal_str)
 
+
+############
+# October 26
+############
+# import time
+# word = input('Enter a word with 6 letters in it: ')
+# for letter in word: 
+#     print(letter)
+#     time.sleep(0.5)
+
+# import time, random
+# userinput = int(input('Enter a number and I will tell you a random number between 1 and the number (number cannot be 1): '))
+# random_num = random.randint(1, userinput)
+# time.sleep(2)
+# print(random_num)
+
+# random_hour = random.randint(0,23)
+# random_minute = random.randint(0,59)
+# random_second = random.randint(0,59)
+# random_time = f'{random_hour}:{random_minute}:{random_second}'
+# print(random_time)
+# wait_time = int(input('enter the wait duration in seconds: '))
+# #input time seconds to hours, mins, secs
+# newHour = wait_time // 3600
+# remainder = wait_time % 3600   
+
+# newMinutes = wait_time // 60
+# newSeconds = wait_time // 60
+
+# finalhour=(random_hour + newHour) % 24 
+# finalmin= (random_minute + newMinutes) % 60
+# finalsec= (random_second + newSeconds) % 60
+
+# print(f'{finalhour}:{finalmin}:{finalsec}')
+
+############
+# October 29
+############
+# strinput = input('enter in a string: ')
+# print(strinput[-3:])
+# print(strinput[3:])
+# for index, letter in enumerate(strinput): 
+#     print(f'{index}: {letter}')
+
+# userinput = input('enter a string: ')
+# vowels = ['a', 'e', 'i', 'o', 'u']
+# newword = ''
+# for letter in userinput: 
+#     if letter in vowels:
+#         newword +='-'
+#     else:
+#         newword += letter
+# print(newword)
+
+def wordsInString(userInput):
+    words = userInput.split()
+    numwords = len(words)
+    print('words in the string:', numwords)
+
+def letters(userInput):
+    count = 0
+    for char in userInput:
+        if char.isalpha() or char.isspace():
+            count+=1
+    print('letters in string:', count)
