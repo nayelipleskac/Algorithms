@@ -689,14 +689,116 @@ import random, time
 #         newword += letter
 # print(newword)
 
-def wordsInString(userInput):
-    words = userInput.split()
-    numwords = len(words)
-    print('words in the string:', numwords)
+# def wordsInString(userInput):
+#     words = userInput.split()
+#     numwords = len(words)
+#     print('words in the string:', numwords)
 
-def letters(userInput):
-    count = 0
-    for char in userInput:
-        if char.isalpha() or char.isspace():
-            count+=1
-    print('letters in string:', count)
+# def letters(userInput):
+#     count = 0
+#     for char in userInput:
+#         if char.isalpha() or char.isspace():
+#             count+=1
+#     print('letters in string:', count)
+
+# total_chocolates = int(input('Enter the total number of chocolates in the box: '))
+# num_children = int(input("Enter the number of children present at the party: "))
+# chocolates_per_child = total_chocolates // num_children
+# chocolates_for_birthday_girl = total_chocolates % num_children
+# print(f"The birthday girl got {chocolates_for_birthday_girl} chocolates. The rest of the children got {chocolates_per_child} chocolates.")
+
+# num1 = float(input("Enter the first number: "))
+# num2 = float(input("Enter the second number: "))
+# num3 = float(input("Enter the third number: "))
+
+# result_a = num1 ** num2 + num3 ** 2
+# result_b = num1 ** 3 + num2 ** 3 + num3 ** 3
+# result_c = (num1 * num2 * num3) ** num2
+# result_d = (num1 ** 2 + num2 ** 2 + num3 ** 2) / (num1 + num2 + num3)
+
+# print(f"a) {num1} to the power of {num2} + {num3} squared is {result_a}")
+# print(f"b) The sum of the cubes of {num1}, {num2}, and {num3} is {result_b}")
+# print(f"c) The result of ({num1} * {num2} * {num3}) to the power of {num2} is {result_c}")
+# print(f"d) The sum of the squares of {num1}, {num2}, and {num3} divided by their sum is {result_d}")
+
+# import random
+# random_nums = []
+# for i in range(3):
+#     random_int = random.randint(1,10)
+#     random_nums.append(random_int)
+
+# if random_nums[1] > max(random_nums[0], random_nums[2]):
+#     print('Yay')
+# else:
+#     print('no')
+# import random
+# num1 = random.randint(5,15)
+# num2 = random.randint(5,15)
+# num3 = random.randint(5,15)
+# print(num1, num2, num3)
+
+# if (num1+num2) > num3 and (num2+num3) > num1 and (num1+num3) > num2:
+#     print('a triangle can be formed')
+# else: 
+#     print('a triangle cannot be formed ')
+
+# import random
+# counter = 0
+# positve_num = [1,2,3,4,5,6,7,8,9,10]
+# for i in range(5):
+#     num=random.randint(-5,10)
+#     if num== -7:
+#         counter-= 1
+#     elif num in positve_num:
+#         counter += 1
+#     print('num: ', num, 'counter: ', counter)
+
+# def calculate_average_goals(goals_scored, games_played):
+#     if games_played <= 0:
+#         return "Invalid number of games played"
+    
+#     average_goals = goals_scored / games_played
+#     return average_goals
+
+# # Get user input for the number of goals scored and optional games played
+# goals = int(input("Enter the total number of goals scored: "))
+# games = int(input("Enter the number of games played: ") or 38)
+
+# average = calculate_average_goals(goals, games)
+# print(f"The average goals per game for the season is {average:.2f}")
+
+# def calculate(num1, num2, sign):
+#     if sign == '+':
+#         print(num1 + num2)
+#     elif sign == '-':
+#         print(num1 - num2)
+#     elif sign == '/':
+#         print(num1 / num2)
+#     elif sign == '*':
+#         print(num1 * num2)
+# num1 = int(input('number one: '))
+# num2 = int(input('number two: '))
+# sign = input('sign: ')
+# calculate(num1, num2, sign)
+
+
+from datetime import datetime
+
+def calcAgeDiffDays(birthdate1, birthdate2=None):
+    if birthdate2 is None:
+        birthdate2 = datetime(2006, 12, 3)
+    elif not isinstance(birthdate1, datetime) or not isinstance(birthdate2, datetime):
+        return "Invalid input. Please provide valid birthdates as datetime objects."
+    
+    age_difference = abs((birthdate1 - birthdate2).days)
+    return age_difference
+
+#example
+my_birthdate = datetime(2006, 12, 3)
+your_birthdate = datetime(2000, 7, 8)
+age_diff = calcAgeDiffDays(my_birthdate, your_birthdate)
+print(f"You are {age_diff} days older/younger than me.")
+
+
+
+
